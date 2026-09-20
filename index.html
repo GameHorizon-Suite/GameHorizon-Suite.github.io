@@ -71,6 +71,7 @@
     border:1px solid var(--line);background:var(--card);backdrop-filter:blur(8px);
     font-size:.95rem;font-weight:650;color:#eef3ff;transition:.18s ease}
   .link svg{width:18px;height:18px;fill:currentColor}
+  .link.live{cursor:pointer}
   .link.live:hover{transform:translateY(-2px);border-color:var(--blue);background:rgba(91,140,255,.16);box-shadow:0 10px 34px rgba(91,140,255,.34)}
   .link.soon{opacity:.5;cursor:not-allowed}
   .link .st{font-size:.6rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:rgba(247,165,59,.18);color:var(--amber);border:1px solid rgba(247,165,59,.34)}
@@ -102,16 +103,89 @@
   .comp{border:1px solid var(--line);border-radius:16px;padding:20px 20px 22px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.01))}
   .comp .ct{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700}
   .comp h3{margin:.35rem 0 .55rem;font-size:1.22rem;font-weight:750;background:linear-gradient(92deg,var(--sky),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .comp p{margin:0;color:#c2ccdf;font-size:.92rem;line-height:1.62}
+  .comp p{margin:0;color:#c2ccdf;font-size:.92rem;line-height:1.62;text-align:justify;text-justify:inter-word}
   .comp .ck{margin-top:13px;display:flex;flex-wrap:wrap;gap:6px}
   .comp .ck span{font-size:.74rem;padding:3px 9px;border-radius:999px;background:rgba(91,140,255,.14);color:#bcd0ff;border:1px solid rgba(91,140,255,.28)}
   .games{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
   @media(max-width:900px){.games{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:560px){.games{grid-template-columns:repeat(2,1fr)}}
-  .game{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:16/10;border:1px solid var(--line);background:#0a0f1a}
-  .game img{width:100%;height:100%;object-fit:cover;display:block;transition:.35s;transform:scale(1.02)}
-  .game:hover img{transform:scale(1.08)}
-  .game .name{position:absolute;left:0;right:0;bottom:0;padding:9px 11px;font-size:.82rem;font-weight:600;background:linear-gradient(0deg,rgba(0,0,0,.82),transparent);color:#fff}
+  .game{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:16/9;border:1px solid var(--line);background:#0a0f1a}
+  .game img,.game video{width:100%;height:100%;object-fit:cover;display:block;transition:.35s;transform:scale(1.02)}
+  .game:hover img,.game:hover video{transform:scale(1.08)}
+  .game .poster{position:absolute;inset:0;z-index:1;opacity:1;object-fit:fill;transform:none;transition:opacity 1.4s ease}
+  .game:hover .poster{transform:none}
+  .game.playing .poster{opacity:0}
+  .dtable-wrap{margin:0;border:1px solid var(--line);border-radius:16px;overflow:auto;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.012));box-shadow:0 18px 50px rgba(0,0,0,.38)}
+  .dtable{width:100%;border-collapse:collapse;font-size:.82rem;color:#d7e0f2;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .dtable th,.dtable td{padding:9px 13px;text-align:right;border-bottom:1px solid rgba(255,255,255,.06)}
+  .dtable td.n{text-align:center}
+  .dtable thead .grp th{padding:11px 13px;font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;text-align:center;font-weight:700;color:var(--muted);border-bottom:1px solid var(--line);background:rgba(255,255,255,.03)}
+  .dtable thead .grp .grp-rec{color:#cfe0ff;border-bottom:2px solid rgba(91,140,255,.65)}
+  .dtable thead .grp .grp-ann{color:#e6d9ff;border-bottom:2px solid rgba(176,132,255,.75)}
+  .dtable thead .grp .grp-span{color:#ffe4bd;border-bottom:2px solid rgba(247,165,59,.65)}
+  .dtable thead .sub th{font-size:.7rem;font-weight:600;color:var(--faint);text-align:center;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .dtable .c-game,.dtable th[scope=row]{text-align:left}
+  .dtable th[scope=row]{font-weight:500;color:var(--ink)}
+  /* sticky first column */
+  .dtable thead .c-game,.dtable th[scope=row]{position:sticky;left:0;z-index:2;background:#0a0e17;border-right:1px solid rgba(255,255,255,.12)}
+  .dtable thead .c-game{z-index:3}
+  /* group separators */
+  .dtable td.g,.dtable thead .sub th.g,.dtable thead .grp .grp-ann,.dtable thead .grp .grp-span{border-left:1px solid rgba(255,255,255,.12)}
+  .dtable tbody tr:hover td{background:rgba(91,140,255,.10)}
+  .dtable tbody tr:hover th[scope=row]{background:#111a2b}
+  .dtable tbody tr.total td,.dtable tbody tr.total th{border-top:2px solid var(--line);border-bottom:none;font-weight:700;color:#fff;background:rgba(255,255,255,.05)}
+  .dtable tbody tr.total th[scope=row]{background:#0d1420}
+  @media(max-width:760px){.dtable{font-size:.76rem}.dtable th,.dtable td{padding:7px 10px}}
+  /* comparison table specifics */
+  .dtable td.c{text-align:center}
+  .dtable .yes{color:#46d17f;font-weight:700}
+  .dtable .no{color:#ff6f6f;font-weight:700}
+  .dtable .ref{color:var(--sky);font-weight:400}
+  .dtable--cmp thead .sub th{white-space:normal;min-width:100px;line-height:1.25;vertical-align:bottom}
+  .dtable--cmp .c-notes{text-align:left}
+  .dtable--cmp td.notes{white-space:normal;text-align:left;color:var(--muted);min-width:230px;border-left:1px solid rgba(255,255,255,.12)}
+  .dtable tbody tr.sec td{text-align:center;font-style:italic;color:var(--muted);font-size:.76rem;letter-spacing:.03em;background:rgba(255,255,255,.045);border-bottom:1px solid var(--line)}
+  .dtable tbody tr.sec:hover td{background:rgba(255,255,255,.045)}
+  /* offline leaderboard */
+  .lb-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:900px){.lb-grid{grid-template-columns:1fr}}
+  .lb-tier{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.012));box-shadow:0 18px 50px rgba(0,0,0,.38)}
+  .lb-wrap{overflow-x:auto}
+  .lb-head{display:flex;align-items:center;gap:8px;padding:10px 16px;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:#cfe0ff;background:rgba(91,140,255,.10);border-bottom:1px solid var(--line)}
+  .lb-head .dot{width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px var(--blue)}
+  .lb-t2 .lb-head{color:#e6d9ff;background:rgba(176,132,255,.10)} .lb-t2 .lb-head .dot{background:#b084ff;box-shadow:0 0 10px #b084ff}
+  .lb-t3 .lb-head{color:#ffe4bd;background:rgba(247,165,59,.10)} .lb-t3 .lb-head .dot{background:var(--orange);box-shadow:0 0 10px var(--orange)}
+  .lb-t4 .lb-head{color:#bfe9d2;background:rgba(70,209,127,.10)} .lb-t4 .lb-head .dot{background:#46d17f;box-shadow:0 0 10px #46d17f}
+  .lb{width:100%;border-collapse:collapse;font-size:.82rem;color:#d7e0f2;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .lb th,.lb td{padding:8px 11px;border-bottom:1px solid rgba(255,255,255,.06);text-align:center}
+  .lb thead th{font-size:.66rem;font-weight:600;color:var(--faint);text-transform:uppercase;letter-spacing:.04em;background:rgba(255,255,255,.02)}
+  .lb .rk{width:34px}.lb .md{text-align:left}
+  .lb td.md{color:var(--ink);font-weight:500}
+  .lb .ov{border-left:1px solid rgba(255,255,255,.10);font-weight:700;color:#eaf1ff}
+  .lb thead .ov{color:var(--muted)}
+  .lb tbody tr:hover td{background:rgba(91,140,255,.10)}
+  .lb .best{color:#ffd98a;font-weight:800}
+  .lb .second{text-decoration:underline;text-underline-offset:2px;text-decoration-color:#c4ccd8;font-weight:700;color:#fff}
+  .lb .medal{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:.7rem;font-weight:800}
+  .lb .m1{background:linear-gradient(160deg,#ffe08a,#f2ac2e);color:#3a2703}
+  .lb .m2{background:linear-gradient(160deg,#eef2f8,#b3c0d4);color:#222c3d}
+  .lb .m3{background:linear-gradient(160deg,#f0b789,#cf8248);color:#31190a}
+  .lb-avg{margin-top:16px;display:flex;flex-wrap:wrap;gap:10px 30px;align-items:center;justify-content:center;padding:13px 20px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.04);font-size:.84rem;color:var(--muted)}
+  .lb-avg .lab{text-transform:uppercase;letter-spacing:.08em;font-size:.7rem;color:var(--faint)}
+  .lb-avg .kv b{color:#eaf1ff;font-weight:800;margin-left:6px}
+  .lb--on{font-size:.8rem}
+  .lb--on th,.lb--on td{padding:7px 7px}
+  .lb--on th{white-space:normal;line-height:1.18;vertical-align:middle;min-width:46px}
+  .lb--on .rk{width:44px}
+  .lb--on .md{min-width:104px}
+  .lb--on .orank{color:var(--muted);font-weight:500}
+  .lb--on thead .orank{color:var(--faint)}
+  .lb--on .frac{display:block;margin:1px 0 0;font-size:.82em;color:var(--faint);font-weight:400}
+  .lb--on td.second{text-decoration:none}
+  .lb--on td.second .v{text-decoration:underline;text-underline-offset:2px;text-decoration-color:#c4ccd8}
+  .data-cap{margin:18px 0 0;font-size:.9rem;color:var(--muted);line-height:1.62;text-align:justify;text-justify:inter-word}
+  .data-cap b{color:#fff;font-weight:700}
+  .game .name{position:absolute;left:0;right:0;top:0;z-index:2;padding:9px 11px;font-size:.82rem;font-weight:600;background:linear-gradient(180deg,rgba(0,0,0,.82),transparent);color:#fff}
   .cite{border:1px solid var(--line);border-radius:14px;background:#0a0f18;padding:22px 24px;overflow:auto}
   .cite pre{margin:0;color:#c7d2ea;font-size:.9rem;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}
   footer{position:relative;z-index:2;background:var(--bg);border-top:1px solid var(--line);max-width:var(--maxw);margin:0 auto;padding:40px 26px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;color:var(--faint);font-size:.86rem}
@@ -127,8 +201,8 @@
     <a href="#annotator">Annotator</a>
     <a href="#data">Data</a>
     <a href="#benchmark">Benchmark</a>
-    <a href="https://github.com/TencentARC/GameHorizon" target="_blank" rel="noopener">Code</a>
     <a href="#citation">Citation</a>
+    <a href="https://github.com/TencentARC/GameHorizon" target="_blank" rel="noopener">Github</a>
   </div>
 </nav>
 
@@ -152,21 +226,21 @@
       <div class="aff">&#8224; Project Lead&nbsp;&nbsp; * Equal Contribution&nbsp;&nbsp; &#9993; Corresponding Author</div>
     </div>
     <div class="links">
-      <span class="link soon">
+      <span class="link live">
         <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm8 1.5V8h4.5L14 3.5z"/></svg>
-        Paper <span class="st">Soon</span>
+        Paper
       </span>
       <a class="link live" href="https://github.com/TencentARC/GameHorizon" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C17 5 18 5.3 18 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
         Code
       </a>
-      <span class="link soon">
+      <span class="link live">
         <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8.5 10a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm7 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM7 15h10a5 5 0 0 1-10 0z"/></svg>
-        Hugging Face <span class="st">Soon</span>
+        Hugging Face <span class="st">Coming Soon</span>
       </span>
-      <span class="link soon">
+      <span class="link live">
         <svg viewBox="0 0 24 24"><path d="M12 2c4.4 0 8 1.6 8 3.5v13c0 1.9-3.6 3.5-8 3.5s-8-1.6-8-3.5v-13C4 3.6 7.6 2 12 2zm0 2c-3.5 0-6 1.1-6 1.5S8.5 7 12 7s6-1.1 6-1.5S15.5 4 12 4z"/></svg>
-        Dataset <span class="st">Soon</span>
+        Dataset <span class="st">Coming Soon</span>
       </span>
     </div>
   </div>
@@ -189,61 +263,209 @@
   <div class="comps">
     <div class="comp">
       <div class="ct">Component 01</div>
-      <h3>Annotator</h3>
-      <p>GameHorizon-Annotator is a scalable and automated pipeline. It combines action-aware segmentation, bottom-up temporal merging, and VLM annotation to transform gameplay trajectories into a three-level instruction pyramid.</p>
-      <div class="ck"><span>Automated</span><span>Bottom-up L1&rarr;L2&rarr;L3</span></div>
+      <h3>GameHorizon-Annotator</h3>
+      <p>GameHorizon-Annotator is a scalable and automated pipeline. It combines action-aware segmentation, bottom-up temporal merging, and VLM annotation to annotate gameplay trajectories with the three-level instructions.</p>
+      <div class="ck"><span>Automated</span><span>Scalable</span><span>Bottom-up L1&rarr;L2&rarr;L3</span></div>
     </div>
     <div class="comp">
       <div class="ct">Component 02</div>
-      <h3>Data</h3>
-      <p>The first large-scale AAA corpus that aligns videos, player actions, and multi-horizon instructions across
-        diverse genres.</p>
-      <div class="ck"><span>5,000 h</span><span>21 titles</span><span>100 players</span><span>6.18M instructions</span></div>
+      <h3>GameHorizon-Data</h3>
+      <p>GameHorizon-Data is the first large-scale AAA game corpus with temporally aligned video recordings, player actions, and multi-horizon instructions across
+        diverse AAA game genres. It comprises 5,000-hour videos in 21 games.</p>
+      <div class="ck"><span>5,000 h</span><span>21 game types</span><span>AAA-focused dataset</span></div>
     </div>
-    <div class="comp">
+    <div class="comp"> 
       <div class="ct">Component 03</div>
-      <h3>Bench</h3>
-      <p>Reproducible offline MCQs plus a stepwise online track that resets on failure to localize errors within
-        long-horizon gameplay.</p>
-      <div class="ck"><span>5,000 MCQs</span><span>T1&ndash;T3 + variants</span><span>20 tasks / 62 subtasks</span></div>
+      <h3>GameHorizon-Bench</h3>
+      <p>GameHorizon-Bench consists of reproducible offline evaluation, stepwise online testing, as well as fine-grained failure diagnosis across diverse model families. We test 47 models in VLMs, UMMs, GUI, coding, and game agents.</p>
+      <div class="ck"><span>5,000 offline MCQs</span><span>20 online tasks, 62 subtasks</span></div>
     </div>
   </div>
 </section>
 
 <section class="block" id="annotator">
-  <div class="sec-head"><span class="num">02 / ANNOTATOR</span><h2>Annotator.<span class="soon-badge">Coming soon</span></h2></div>
-  <p class="lead">Our multi-level annotation toolkit and pipeline will be released here.</p>
+  <div class="sec-head min"><span class="num">02 / GAMEHORIZON-ANNOTATOR</span></div>
+
+  <figure class="figure">
+    <div class="plate"><img src="assets/figures/annov1.png?v=2" alt="Workflow of GameHorizon-Annotator: action-aware segmentation and bottom-up temporal merging into multi-horizon instructions" loading="lazy" /></div>
+    <figcaption><b>Workflow of GameHorizon-Annotator.</b> Videos and actions are first processed by action-aware
+      segmentation to produce short-horizon clips, with key actions determining their temporal boundaries. A VLM
+      annotates each clip with an L1 operation. Lower-level clips with their instructions are progressively
+      merged into medium- and long-horizon clips based on action continuity and semantic coherence, from which the
+      VLM can derive the L2 goals and L3 strategies in the bottom-up procedure.</figcaption>
+  </figure>
+
+  <figure class="figure">
+    <div class="plate"><img src="assets/figures/fig1v8-print.png?v=2" alt="GameHorizon Suite pyramid of primitive actions, short-horizon operations, medium-horizon goals, and long-horizon strategies across diverse games" loading="lazy" /></div>
+    <figcaption><b>Examples of the annotated instructions.</b> We construct a pyramid of primitive actions, short-horizon operations, medium-horizon goals, and long-horizon strategies.</figcaption>
+  </figure>
 </section>
 
 <section class="block" id="data">
-  <div class="sec-head"><span class="num">03 / DATA</span><h2>A wall of worlds.</h2></div>
+  <div class="sec-head min"><span class="num">03 / GAMEHORIZON-DATA</span></div>
   <div class="games">
-    <div class="game"><img src="assets/covers/BlackMythWukong.jpg" alt=""><div class="name">Black Myth: Wukong</div></div>
-    <div class="game"><img src="assets/covers/EldenRing.jpg" alt=""><div class="name">Elden Ring</div></div>
-    <div class="game"><img src="assets/covers/Cyberpunk2077.jpg" alt=""><div class="name">Cyberpunk 2077</div></div>
-    <div class="game"><img src="assets/covers/RedDeadRedemption.jpg" alt=""><div class="name">Red Dead Redemption 2</div></div>
-    <div class="game"><img src="assets/covers/GTA5.jpg" alt=""><div class="name">GTA V</div></div>
-    <div class="game"><img src="assets/covers/TheWitcher3.jpg" alt=""><div class="name">The Witcher 3</div></div>
-    <div class="game"><img src="assets/covers/AssassinsCreed.jpg" alt=""><div class="name">Assassin's Creed</div></div>
-    <div class="game"><img src="assets/covers/EldenRingNightreign.jpg" alt=""><div class="name">Elden Ring: Nightreign</div></div>
-    <div class="game"><img src="assets/covers/ApexLegends.jpg" alt=""><div class="name">Apex Legends</div></div>
-    <div class="game"><img src="assets/covers/PUBG.jpg" alt=""><div class="name">PUBG</div></div>
-    <div class="game"><img src="assets/covers/Palworld.jpg" alt=""><div class="name">Palworld</div></div>
-    <div class="game"><img src="assets/covers/DeltaForce.jpg" alt=""><div class="name">Delta Force</div></div>
-    <div class="game"><img src="assets/covers/EscapeFromTarkov.jpg" alt=""><div class="name">Escape from Tarkov</div></div>
-    <div class="game"><img src="assets/covers/WatchDogs.jpg" alt=""><div class="name">Watch Dogs</div></div>
-    <div class="game"><img src="assets/covers/GenshinImpact.jpg" alt=""><div class="name">Genshin Impact</div></div>
-    <div class="game"><img src="assets/covers/HonorOfKingsWorld.jpg" alt=""><div class="name">Honor of Kings: World</div></div>
+    <div class="game"><video src="assets/videos/BlackMythWukong.mp4" poster="assets/posters/BlackMythWukong.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/BlackMythWukong.jpg" alt="" aria-hidden="true"><div class="name">Black Myth: Wukong</div></div>
+    <div class="game"><video src="assets/videos/EldenRing.mp4" poster="assets/posters/EldenRing.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/EldenRing.jpg" alt="" aria-hidden="true"><div class="name">Elden Ring</div></div>
+    <div class="game"><video src="assets/videos/Cyberpunk2077.mp4?v=2" poster="assets/posters/Cyberpunk2077.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/Cyberpunk2077.jpg" alt="" aria-hidden="true"><div class="name">Cyberpunk 2077</div></div>
+    <div class="game"><video src="assets/videos/RedDeadRedemption.mp4" poster="assets/posters/RedDeadRedemption.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/RedDeadRedemption.jpg" alt="" aria-hidden="true"><div class="name">Red Dead Redemption 2</div></div>
+    <div class="game"><video src="assets/videos/GTA5.mp4?v=2" poster="assets/posters/GTA5.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/GTA5.jpg" alt="" aria-hidden="true"><div class="name">GTA V</div></div>
+    <div class="game"><video src="assets/videos/TheWitcher3.mp4?v=2" poster="assets/posters/TheWitcher3.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/TheWitcher3.jpg" alt="" aria-hidden="true"><div class="name">The Witcher 3</div></div>
+    <div class="game"><video src="assets/videos/AssassinsCreed.mp4" poster="assets/posters/AssassinsCreed.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/AssassinsCreed.jpg" alt="" aria-hidden="true"><div class="name">Assassin's Creed</div></div>
+    <div class="game"><video src="assets/videos/EldenRingNightreign.mp4?v=2" poster="assets/posters/EldenRingNightreign.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/EldenRingNightreign.jpg" alt="" aria-hidden="true"><div class="name">Elden Ring: Nightreign</div></div>
+    <div class="game"><video src="assets/videos/ApexLegends.mp4" poster="assets/posters/ApexLegends.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/ApexLegends.jpg" alt="" aria-hidden="true"><div class="name">Apex Legends</div></div>
+    <div class="game"><video src="assets/videos/PUBG.mp4?v=2" poster="assets/posters/PUBG.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/PUBG.jpg" alt="" aria-hidden="true"><div class="name">PUBG</div></div>
+    <div class="game"><video src="assets/videos/Palworld.mp4?v=2" poster="assets/posters/Palworld.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/Palworld.jpg" alt="" aria-hidden="true"><div class="name">Palworld</div></div>
+    <div class="game"><video src="assets/videos/DeltaForce.mp4" poster="assets/posters/DeltaForce.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/DeltaForce.jpg" alt="" aria-hidden="true"><div class="name">Delta Force</div></div>
+    <div class="game"><video src="assets/videos/EscapeFromTarkov.mp4?v=2" poster="assets/posters/EscapeFromTarkov.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/EscapeFromTarkov.jpg?v=2" alt="" aria-hidden="true"><div class="name">Escape from Tarkov</div></div>
+    <div class="game"><video src="assets/videos/WatchDogs.mp4?v=2" poster="assets/posters/WatchDogs.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/WatchDogs.jpg" alt="" aria-hidden="true"><div class="name">Watch Dogs</div></div>
+    <div class="game"><video src="assets/videos/GenshinImpact.mp4?v=2" poster="assets/posters/GenshinImpact.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/GenshinImpact.jpg" alt="" aria-hidden="true"><div class="name">Genshin Impact</div></div>
+    <div class="game"><video src="assets/videos/Valorant.mp4?v=2" poster="assets/posters/Valorant.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/Valorant.jpg" alt="" aria-hidden="true"><div class="name">Valorant</div></div>
+    <div class="game"><video src="assets/videos/Minecraft.mp4?v=2" poster="assets/posters/Minecraft.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/Minecraft.jpg" alt="" aria-hidden="true"><div class="name">Minecraft</div></div>
+    <div class="game"><video src="assets/videos/NTE.mp4" poster="assets/posters/NTE.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/NTE.jpg?v=2" alt="" aria-hidden="true"><div class="name">Neverness to Everness</div></div>
+    <div class="game"><video src="assets/videos/WutheringWaves.mp4?v=2" poster="assets/posters/WutheringWaves.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/WutheringWaves.jpg?v=2" alt="" aria-hidden="true"><div class="name">Wuthering Waves</div></div>
+    <div class="game"><video src="assets/videos/RocoKingdomWorld.mp4?v=2" poster="assets/posters/RocoKingdomWorld.jpg" muted playsinline preload="auto"></video><img class="poster" src="assets/covers/RocoKingdomWorld.jpg?v=3" alt="" aria-hidden="true"><div class="name">Roco Kingdom: World</div></div>
   </div>
+  <p class="data-cap"><b>21 AAA titles, 5,000 hours of gameplay.</b> GameHorizon-Data is the first large-scale AAA gameplay dataset with temporally aligned videos, player actions, and multi-horizon instructions. The game trajectories are collected by 100 experienced human players. It spans five diverse game genres,  such as the open-world, action role-playing, competitive shooter, sandbox survival, and creature-collecting adventure. It provides a reliable data foundation for evaluating gameplay abilities across models.</p>
+
+  <figure class="figure">
+    <div class="dtable-wrap">
+      <table class="dtable">
+        <colgroup><col class="c-game"><col span="4"><col span="4"><col span="3"></colgroup>
+        <thead>
+          <tr class="grp">
+            <th rowspan="2" scope="col" class="c-game">Game Title</th>
+            <th colspan="4" scope="colgroup" class="grp-rec">Recording Duration and Share</th>
+            <th colspan="4" scope="colgroup" class="grp-ann">Annotation Counts</th>
+            <th colspan="3" scope="colgroup" class="grp-span">Avg. Instruction Span (s)</th>
+          </tr>
+          <tr class="sub">
+            <th scope="col">Total (h)</th><th scope="col">Share (%)</th><th scope="col">Valid Rate (%)</th><th scope="col">Valid (h)</th>
+            <th scope="col" class="g">Actions (10<sup>4</sup>)</th><th scope="col">L1</th><th scope="col">L2</th><th scope="col">L3</th>
+            <th scope="col" class="g">L1</th><th scope="col">L2</th><th scope="col">L3</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr><th scope="row">Valorant</th><td class="n">617.5</td><td class="n">12.35</td><td class="n">86.4</td><td class="n">533.8</td><td class="n g">5,811</td><td class="n">705,380</td><td class="n">23,113</td><td class="n">5,778</td><td class="n g">2.72</td><td class="n">83.1</td><td class="n">332.5</td></tr>
+        <tr><th scope="row">Minecraft</th><td class="n">589.8</td><td class="n">11.80</td><td class="n">84.5</td><td class="n">498.3</td><td class="n g">5,087</td><td class="n">448,166</td><td class="n">21,715</td><td class="n">5,429</td><td class="n g">4.00</td><td class="n">82.6</td><td class="n">330.4</td></tr>
+        <tr><th scope="row">Grand Theft Auto V</th><td class="n">566.1</td><td class="n">11.32</td><td class="n">86.5</td><td class="n">489.9</td><td class="n g">3,585</td><td class="n">382,302</td><td class="n">21,644</td><td class="n">5,411</td><td class="n g">4.61</td><td class="n">81.5</td><td class="n">325.9</td></tr>
+        <tr><th scope="row">Palworld</th><td class="n">438.7</td><td class="n">8.77</td><td class="n">83.5</td><td class="n">366.5</td><td class="n g">3,741</td><td class="n">329,615</td><td class="n">15,971</td><td class="n">3,993</td><td class="n g">4.00</td><td class="n">82.6</td><td class="n">330.4</td></tr>
+        <tr><th scope="row">Delta Force</th><td class="n">337.0</td><td class="n">6.74</td><td class="n">85.1</td><td class="n">286.9</td><td class="n g">3,123</td><td class="n">379,091</td><td class="n">12,422</td><td class="n">3,105</td><td class="n g">2.72</td><td class="n">83.1</td><td class="n">332.5</td></tr>
+        <tr><th scope="row">Roco Kingdom: World</th><td class="n">329.2</td><td class="n">6.58</td><td class="n">91.9</td><td class="n">302.4</td><td class="n g">2,677</td><td class="n">786,446</td><td class="n">13,054</td><td class="n">3,263</td><td class="n g">1.38</td><td class="n">83.4</td><td class="n">333.6</td></tr>
+        <tr><th scope="row">Red Dead Redemption 2</th><td class="n">304.4</td><td class="n">6.09</td><td class="n">85.9</td><td class="n">261.6</td><td class="n g">1,992</td><td class="n">202,428</td><td class="n">11,553</td><td class="n">2,888</td><td class="n g">4.65</td><td class="n">81.5</td><td class="n">326.1</td></tr>
+        <tr><th scope="row">Cyberpunk 2077</th><td class="n">301.2</td><td class="n">6.02</td><td class="n">87.9</td><td class="n">264.7</td><td class="n g">2,574</td><td class="n">192,222</td><td class="n">11,646</td><td class="n">2,912</td><td class="n g">4.96</td><td class="n">81.8</td><td class="n">327.3</td></tr>
+        <tr><th scope="row">Genshin Impact</th><td class="n">232.6</td><td class="n">4.65</td><td class="n">90.4</td><td class="n">210.4</td><td class="n g">1,862</td><td class="n">547,134</td><td class="n">9,082</td><td class="n">2,270</td><td class="n g">1.38</td><td class="n">83.4</td><td class="n">333.6</td></tr>
+        <tr><th scope="row">PUBG: Battlegrounds</th><td class="n">197.4</td><td class="n">3.95</td><td class="n">84.6</td><td class="n">167.0</td><td class="n g">1,818</td><td class="n">220,726</td><td class="n">7,233</td><td class="n">1,808</td><td class="n g">2.72</td><td class="n">83.1</td><td class="n">332.5</td></tr>
+        <tr><th scope="row">Elden Ring Nightreign</th><td class="n">168.9</td><td class="n">3.38</td><td class="n">90.0</td><td class="n">152.0</td><td class="n g">1,348</td><td class="n">250,877</td><td class="n">6,630</td><td class="n">1,658</td><td class="n g">2.18</td><td class="n">82.6</td><td class="n">330.2</td></tr>
+        <tr><th scope="row">The Witcher 3: Wild Hunt</th><td class="n">158.7</td><td class="n">3.17</td><td class="n">89.4</td><td class="n">141.8</td><td class="n g">1,323</td><td class="n">287,433</td><td class="n">6,290</td><td class="n">1,573</td><td class="n g">1.78</td><td class="n">81.2</td><td class="n">324.6</td></tr>
+        <tr><th scope="row">Elden Ring</th><td class="n">135.9</td><td class="n">2.72</td><td class="n">92.6</td><td class="n">125.9</td><td class="n g">1,116</td><td class="n">207,706</td><td class="n">5,489</td><td class="n">1,372</td><td class="n g">2.18</td><td class="n">82.6</td><td class="n">330.2</td></tr>
+        <tr><th scope="row">Escape from Tarkov</th><td class="n">119.8</td><td class="n">2.40</td><td class="n">81.7</td><td class="n">97.9</td><td class="n g">1,065</td><td class="n">129,320</td><td class="n">4,237</td><td class="n">1,059</td><td class="n g">2.72</td><td class="n">83.1</td><td class="n">332.5</td></tr>
+        <tr><th scope="row">Apex Legends</th><td class="n">116.5</td><td class="n">2.33</td><td class="n">85.3</td><td class="n">99.4</td><td class="n g">1,082</td><td class="n">131,381</td><td class="n">4,305</td><td class="n">1,076</td><td class="n g">2.72</td><td class="n">83.1</td><td class="n">332.5</td></tr>
+        <tr><th scope="row">Wuthering Waves</th><td class="n">108.4</td><td class="n">2.17</td><td class="n">89.1</td><td class="n">96.5</td><td class="n g">819</td><td class="n">294,088</td><td class="n">4,077</td><td class="n">1,019</td><td class="n g">1.18</td><td class="n">85.2</td><td class="n">341.0</td></tr>
+        <tr><th scope="row">Neverness to Everness</th><td class="n">101.3</td><td class="n">2.03</td><td class="n">89.3</td><td class="n">90.4</td><td class="n g">800</td><td class="n">235,145</td><td class="n">3,903</td><td class="n">976</td><td class="n g">1.38</td><td class="n">83.4</td><td class="n">333.6</td></tr>
+        <tr><th scope="row">Assassin's Creed</th><td class="n">51.1</td><td class="n">1.02</td><td class="n">87.0</td><td class="n">44.5</td><td class="n g">338</td><td class="n">34,401</td><td class="n">1,963</td><td class="n">491</td><td class="n g">4.65</td><td class="n">81.5</td><td class="n">326.1</td></tr>
+        <tr><th scope="row">Black Myth: Wukong</th><td class="n">51.1</td><td class="n">1.02</td><td class="n">91.3</td><td class="n">46.6</td><td class="n g">414</td><td class="n">76,971</td><td class="n">2,034</td><td class="n">509</td><td class="n g">2.18</td><td class="n">82.6</td><td class="n">330.2</td></tr>
+        <tr><th scope="row">Watch Dogs 2</th><td class="n">38.5</td><td class="n">0.77</td><td class="n">85.0</td><td class="n">32.7</td><td class="n g">249</td><td class="n">25,324</td><td class="n">1,445</td><td class="n">361</td><td class="n g">4.65</td><td class="n">81.5</td><td class="n">326.1</td></tr>
+        <tr><th scope="row">Honor of Kings: World</th><td class="n">35.9</td><td class="n">0.72</td><td class="n">87.3</td><td class="n">31.3</td><td class="n g">277</td><td class="n">81,429</td><td class="n">1,352</td><td class="n">338</td><td class="n g">1.38</td><td class="n">83.4</td><td class="n">333.6</td></tr>
+        <tr class="total"><th scope="row">Total / Avg.</th><td class="n">5,000</td><td class="n">100.00</td><td class="n">86.8</td><td class="n">4,341</td><td class="n g">41,103</td><td class="n">5,947,588</td><td class="n">189,158</td><td class="n">47,290</td><td class="n g">2.63</td><td class="n">82.6</td><td class="n">330.4</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figcaption><b>Statistics of GameHorizon-Data across 21 game titles.</b> We report the duration and share of
+      recordings, counts of actions and instructions, and the average temporal span of each distinct instruction.
+      Games are sorted by duration. Valid rate denotes the fraction retained for instruction annotation after
+      filtering. Actions are in 10<sup>4</sup> unit.</figcaption>
+  </figure>
+
+  <figure class="figure">
+    <div class="dtable-wrap">
+      <table class="dtable dtable--cmp">
+        <colgroup><col class="c-game"><col span="2"><col span="4"><col class="c-notes"></colgroup>
+        <thead>
+          <tr class="grp">
+            <th rowspan="2" scope="col" class="c-game">Dataset</th>
+            <th colspan="2" scope="colgroup" class="grp-rec">Data Scope</th>
+            <th colspan="4" scope="colgroup" class="grp-ann">Annotation Properties</th>
+            <th rowspan="2" scope="col" class="c-notes">Notes</th>
+          </tr>
+          <tr class="sub">
+            <th scope="col">Large-Scale</th><th scope="col">AAA-Focused</th>
+            <th scope="col" class="g">Direct Human Actions</th><th scope="col">Instruction Annotations</th><th scope="col">Dense Instructions</th><th scope="col">Multi-Horizon</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr class="sec"><td colspan="8">Single-Game Datasets</td></tr>
+        <tr><th scope="row">MineRL <span class="ref">(Guss et al., 2019)</span></th><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="yes">&#10003;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Minecraft;<br>human actions;<br>no textual instructions.</td></tr>
+        <tr><th scope="row">MineDojo <span class="ref">(Fan et al., 2022)</span></th><td class="c"><span class="yes">&#10003;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Web Minecraft videos;<br>no actions or instructions.</td></tr>
+        <tr><th scope="row">VPT <span class="ref">(Baker et al., 2022)</span></th><td class="c"><span class="yes">&#10003;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Web Minecraft videos;<br>IDM actions;<br>no instructions.</td></tr>
+        <tr><th scope="row">STEVE-1 <span class="ref">(Lifshitz et al., 2023)</span></th><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="yes">&#10003;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Minecraft;<br>only 10K short-term text instructions.</td></tr>
+        <tr><th scope="row">PLAICraft <span class="ref">(He et al., 2025)</span></th><td class="c"><span class="yes">&#10003;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="yes">&#10003;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Minecraft;<br>human actions;<br>no textual instructions.</td></tr>
+        <tr><th scope="row">WildWorld <span class="ref">(Li et al., 2026)</span></th><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Monster Hunter Wilds;<br>AI actions;<br>no instructions.</td></tr>
+        <tr><th scope="row">EgoCS-400K <span class="ref">(Guo et al., 2026)</span></th><td class="c"><span class="yes">&#10003;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">CS;<br>replay-derived action labels;<br>no instructions.</td></tr>
+        <tr class="sec"><td colspan="8">Multi-Game Datasets</td></tr>
+        <tr><th scope="row">NitroGen <span class="ref">(Magne et al., 2026)</span></th><td class="c"><span class="yes">&#10003;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Gamepad-overlay actions without text instructions.</td></tr>
+        <tr><th scope="row">Open-P2P <span class="ref">(Yue et al., 2026)</span></th><td class="c"><span class="yes">&#10003;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="yes">&#10003;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Majority non-AAA games;<br>sparse text instructions.</td></tr>
+        <tr><th scope="row">D2E <span class="ref">(Choi et al., 2026)</span></th><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Mostly IDM-inferred actions;<br>no text instructions.</td></tr>
+        <tr><th scope="row">Gaming-500-hours <span class="ref">(Markov AI, 2026)</span></th><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="yes">&#10003;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Majority non-AAA games;<br>no textual instructions.</td></tr>
+        <tr class="total"><th scope="row">GameHorizon-Data (Ours)</th><td class="c"><span class="yes">&#10003;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="c g"><span class="yes">&#10003;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="notes g">AAA;<br>human actions;<br>dense multi-horizon instructions.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figcaption><b>Comparison with existing datasets.</b> Large-scale denotes at least 3,000 hours of
+      gameplay. AAA-focused indicates that more than half of the included game titles are AAA games. The direct human
+      actions refer to cases where the majority of the action labels are recorded directly from human players rather
+      than inferred or generated.</figcaption>
+  </figure>
 </section>
 
 <section class="block" id="benchmark">
-  <div class="sec-head"><span class="num">04 / BENCHMARK</span><h2>Benchmark.<span class="soon-badge">Coming soon</span></h2></div>
-  <p class="lead">Offline and online leaderboards across model families will be released here.</p>
+  <div class="sec-head min"><span class="num">04 / GAMEHORIZON-BENCH</span></div>
+
+  <figure class="figure">
+    <div class="plate"><img src="assets/figures/offlinev1.png" alt="The offline track of GameHorizon-Bench: single-horizon action, multi-horizon decomposition, and cross-horizon consistency tasks" loading="lazy" /></div>
+    <figcaption><b>The offline track of GameHorizon-Bench.</b> It comprises three primary tasks and ten variant tasks.
+      Given sampled frames and the short-horizon instruction L1, single-horizon action T1 requires models to determine
+      the correct action sequence. Multi-horizon decomposition T2 evaluates whether models can decompose a
+      medium-horizon goal L2 into the correct sequence of short-horizon operations L1. Cross-horizon consistency T3
+      assesses the overall consistency across frames, L1&ndash;L3 instructions, and actions. Variant tasks T*
+      provide additional diagnostics and insights into different gameplay abilities. Some text are abridged due to space constraints.</figcaption>
+  </figure>
+
+  <figure class="figure">
+    <div class="lboard">
+      <div class="lb-grid"><div class="lb-tier lb-t1"><div class="lb-head"><span class="dot"></span>Tier 1</div><div class="lb-wrap"><table class="lb"><thead><tr><th class="rk">#</th><th class="md">Model</th><th>T1</th><th>T2</th><th>T3</th><th class="ov">Overall</th></tr></thead><tbody><tr><td class="rk"><span class="medal m1">1</span></td><td class="md">GPT-6-Astra</td><td class="best">69.4</td><td>79.6</td><td class="best">91.5</td><td class="ov best">80.2</td></tr><tr><td class="rk"><span class="medal m2">2</span></td><td class="md">Gemini 3.8 Flash</td><td>65.9</td><td class="best">81.2</td><td class="second">84.8</td><td class="ov second">77.3</td></tr><tr><td class="rk"><span class="medal m3">3</span></td><td class="md">Gemini 3.7 Flash</td><td class="second">66.2</td><td class="second">80.1</td><td>83.9</td><td class="ov">76.7</td></tr><tr><td class="rk">4</td><td class="md">Gemini 3.6 Flash</td><td>62.3</td><td>79.1</td><td>84.6</td><td class="ov">75.3</td></tr><tr><td class="rk">5</td><td class="md">GPT-5.6 Sol</td><td>65.3</td><td>77.5</td><td>81.5</td><td class="ov">74.8</td></tr><tr><td class="rk">6</td><td class="md">Kimi-K3</td><td>64.4</td><td>79.3</td><td>79.7</td><td class="ov">74.5</td></tr><tr><td class="rk">7</td><td class="md">Gemini 3.5 Flash</td><td>64.9</td><td>77.4</td><td>80.8</td><td class="ov">74.4</td></tr><tr><td class="rk">8</td><td class="md">GPT-5.5</td><td>64.6</td><td>78.9</td><td>76.2</td><td class="ov">73.2</td></tr><tr><td class="rk">9</td><td class="md">Gemini 3.1 Pro</td><td>64.5</td><td>75.8</td><td>78.2</td><td class="ov">72.8</td></tr><tr><td class="rk">10</td><td class="md">Doubao-Seed-2.1-Turbo</td><td>63.1</td><td>79.4</td><td>75.5</td><td class="ov">72.7</td></tr><tr><td class="rk">11</td><td class="md">Doubao-Seed-2.1-Pro</td><td>62.9</td><td>76.7</td><td>76.6</td><td class="ov">72.1</td></tr></tbody></table></div></div><div class="lb-tier lb-t2"><div class="lb-head"><span class="dot"></span>Tier 2</div><div class="lb-wrap"><table class="lb"><thead><tr><th class="rk">#</th><th class="md">Model</th><th>T1</th><th>T2</th><th>T3</th><th class="ov">Overall</th></tr></thead><tbody><tr><td class="rk">12</td><td class="md">Doubao-Seed-2.0-Pro</td><td>59.2</td><td>74.9</td><td>80.0</td><td class="ov">71.4</td></tr><tr><td class="rk">13</td><td class="md">Claude Fable 5</td><td>62.9</td><td>72.7</td><td>78.1</td><td class="ov">71.2</td></tr><tr><td class="rk">14</td><td class="md">GPT-5.6 Terra</td><td>62.1</td><td>75.6</td><td>74.4</td><td class="ov">70.7</td></tr><tr><td class="rk">15</td><td class="md">Qwen3.7-Plus</td><td>58.8</td><td>75.9</td><td>71.5</td><td class="ov">68.7</td></tr><tr><td class="rk">16</td><td class="md">Qwen3.8-27B</td><td>59.9</td><td>77.4</td><td>68.1</td><td class="ov">68.5</td></tr><tr><td class="rk">17</td><td class="md">GPT-5.6 Luna</td><td>61.6</td><td>70.7</td><td>71.1</td><td class="ov">67.8</td></tr><tr><td class="rk">17</td><td class="md">Kimi-K2.6</td><td>61.2</td><td>73.2</td><td>69.0</td><td class="ov">67.8</td></tr><tr><td class="rk">19</td><td class="md">Doubao-Seed-2.0-Lite</td><td>55.2</td><td>69.0</td><td>76.3</td><td class="ov">66.8</td></tr><tr><td class="rk">20</td><td class="md">Gemma 4 31B-IT</td><td>53.8</td><td>68.6</td><td>76.6</td><td class="ov">66.3</td></tr><tr><td class="rk">21</td><td class="md">MiniMax-M3</td><td>57.8</td><td>68.5</td><td>70.6</td><td class="ov">65.6</td></tr><tr><td class="rk">22</td><td class="md">Qwen3-VL-235B-A22B-Thinking</td><td>58.2</td><td>71.6</td><td>65.9</td><td class="ov">65.2</td></tr></tbody></table></div></div><div class="lb-tier lb-t3"><div class="lb-head"><span class="dot"></span>Tier 3</div><div class="lb-wrap"><table class="lb"><thead><tr><th class="rk">#</th><th class="md">Model</th><th>T1</th><th>T2</th><th>T3</th><th class="ov">Overall</th></tr></thead><tbody><tr><td class="rk">23</td><td class="md">Claude Opus 4.8</td><td>59.1</td><td>62.1</td><td>73.1</td><td class="ov">64.8</td></tr><tr><td class="rk">24</td><td class="md">Claude Sonnet 5</td><td>54.4</td><td>57.7</td><td>82.0</td><td class="ov">64.7</td></tr><tr><td class="rk">25</td><td class="md">Step-3.7-Flash</td><td>57.5</td><td>71.3</td><td>63.4</td><td class="ov">64.1</td></tr><tr><td class="rk">26</td><td class="md">Qwen3-VL-235B-A22B-Instruct</td><td>55.1</td><td>62.1</td><td>73.1</td><td class="ov">63.4</td></tr><tr><td class="rk">27</td><td class="md">GLM-5V-Turbo</td><td>53.4</td><td>65.4</td><td>70.8</td><td class="ov">63.2</td></tr><tr><td class="rk">28</td><td class="md">GPT-5.2</td><td>58.9</td><td>58.9</td><td>70.6</td><td class="ov">62.8</td></tr><tr><td class="rk">29</td><td class="md">Qwen3.5-397B-A17B</td><td>53.3</td><td>60.1</td><td>73.5</td><td class="ov">62.3</td></tr><tr><td class="rk">30</td><td class="md">BAGEL-7B-MoT</td><td>51.7</td><td>57.3</td><td>75.1</td><td class="ov">61.4</td></tr><tr><td class="rk">31</td><td class="md">Qwen2.5-VL-32B-Instruct</td><td>54.8</td><td>58.0</td><td>69.7</td><td class="ov">60.8</td></tr><tr><td class="rk">32</td><td class="md">Step3-VL-10B</td><td>55.4</td><td>64.7</td><td>61.7</td><td class="ov">60.6</td></tr><tr><td class="rk">33</td><td class="md">SenseNova-U1-8B-MoT</td><td>48.2</td><td>59.2</td><td>67.5</td><td class="ov">58.3</td></tr></tbody></table></div></div><div class="lb-tier lb-t4"><div class="lb-head"><span class="dot"></span>Tier 4</div><div class="lb-wrap"><table class="lb"><thead><tr><th class="rk">#</th><th class="md">Model</th><th>T1</th><th>T2</th><th>T3</th><th class="ov">Overall</th></tr></thead><tbody><tr><td class="rk">34</td><td class="md">Qwen3.6-35B-A3B</td><td>53.3</td><td>52.9</td><td>66.3</td><td class="ov">57.5</td></tr><tr><td class="rk">35</td><td class="md">Qwen3-Omni-30B-A3B-Instruct</td><td>52.5</td><td>55.6</td><td>63.7</td><td class="ov">57.3</td></tr><tr><td class="rk">36</td><td class="md">GELab-Zero-4B-Preview</td><td>51.8</td><td>46.8</td><td>72.7</td><td class="ov">57.1</td></tr><tr><td class="rk">37</td><td class="md">Qwen2.5-VL-7B-Instruct</td><td>52.0</td><td>54.3</td><td>63.7</td><td class="ov">56.7</td></tr><tr><td class="rk">38</td><td class="md">InternVL3.5-8B</td><td>51.8</td><td>50.2</td><td>65.5</td><td class="ov">55.8</td></tr><tr><td class="rk">39</td><td class="md">GLM-4.1V-9B-Thinking</td><td>54.9</td><td>54.8</td><td>55.3</td><td class="ov">55.0</td></tr><tr><td class="rk">40</td><td class="md">GPT-4o</td><td>55.7</td><td>46.3</td><td>61.3</td><td class="ov">54.4</td></tr><tr><td class="rk">41</td><td class="md">UI-TARS-1.5-7B</td><td>49.1</td><td>47.1</td><td>62.9</td><td class="ov">53.0</td></tr><tr><td class="rk">42</td><td class="md">Ovis-U1-3B</td><td>44.7</td><td>39.6</td><td>59.2</td><td class="ov">47.8</td></tr><tr><td class="rk">43</td><td class="md">InternVL3.5-2B</td><td>45.1</td><td>40.3</td><td>54.7</td><td class="ov">46.0</td></tr><tr><td class="rk">44</td><td class="md">InternVL-U-4B</td><td>46.1</td><td>37.9</td><td>49.8</td><td class="ov">44.6</td></tr></tbody></table></div></div></div>
+      <div class="lb-avg"><span class="lab">Average over all models</span><span class="kv">T1<b>57.3</b></span><span class="kv">T2<b>65.1</b></span><span class="kv">T3<b>71.6</b></span><span class="kv">Overall<b>64.7</b></span></div>
+    </div>
+    <figcaption><b>Offline results of the primary tasks T1&ndash;T3.</b> The table reports results for general-purpose VLMs, UMMs, GUI agents, and coding agents with question-answering abilities. Accuracies are reported as percentages. Overall denotes the mean accuracy across three tasks. Models are ordered from higher to lower performance and divided into four tiers. The best and second-best metrics are marked in <b>bold</b> and <u>underlined</u>. The final row reports the average accuracy for all models in table above.</figcaption>
+  </figure>
+
+  <figure class="figure">
+    <div class="plate"><img src="assets/figures/onlinev3.png" alt="The online track of GameHorizon-Bench: long-horizon causal and thematic tasks with verifiable short-horizon subtasks" loading="lazy" /></div>
+    <figcaption><b>The online track of GameHorizon-Bench.</b> It contains long-horizon causal and thematic tasks, each
+      comprising multiple verifiable short-horizon subtasks. The causal tasks can only be completed in a prescribed
+      order because of dependencies between successive subtasks. The thematic tasks contain subtasks that share a
+      common theme but can be performed in any order. The figure shows results from Gemini 3.6 Flash, with arrows
+      indicating its actual execution order. After a subtask fails, the environment is reset to the corresponding
+      success state so that evaluation can continue. A long-horizon task is passed only when all
+      the constituent subtasks succeed.</figcaption>
+  </figure>
+
+  <figure class="figure">
+    <div class="lboard">
+      <div class="lb-grid"><div class="lb-tier lb-t1"><div class="lb-head"><span class="dot"></span>Tier 1</div><div class="lb-wrap"><table class="lb lb--on"><thead><tr><th class="rk">Online Rank</th><th class="md">Model</th><th class="orank">Offline Rank</th><th>Short-Horizon Subtasks</th><th>Long-Horizon Tasks</th><th>Causal</th><th>Thematic</th></tr></thead><tbody><tr><td class="rk"><span class="medal m1">1</span></td><td class="md">GPT-6-Astra</td><td class="orank">1</td><td class="best"><span class="v">66.1</span><span class="frac">(41/62)</span></td><td class="best"><span class="v">45.0</span><span class="frac">(9/20)</span></td><td class="best"><span class="v">40.0</span><span class="frac">(4/10)</span></td><td class="best"><span class="v">50.0</span><span class="frac">(5/10)</span></td></tr><tr><td class="rk"><span class="medal m2">2</span></td><td class="md">Gemini 3.6 Flash</td><td class="orank">4</td><td class="second"><span class="v">56.5</span><span class="frac">(35/62)</span></td><td class="second"><span class="v">30.0</span><span class="frac">(6/20)</span></td><td class="second"><span class="v">30.0</span><span class="frac">(3/10)</span></td><td class="second"><span class="v">30.0</span><span class="frac">(3/10)</span></td></tr><tr><td class="rk"><span class="medal m3">3</span></td><td class="md">Kimi-K3</td><td class="orank">6</td><td><span class="v">46.8</span><span class="frac">(29/62)</span></td><td><span class="v">10.0</span><span class="frac">(2/20)</span></td><td><span class="v">20.0</span><span class="frac">(2/10)</span></td><td><span class="v">0.0</span><span class="frac">(0/10)</span></td></tr></tbody></table></div></div><div class="lb-tier lb-t2"><div class="lb-head"><span class="dot"></span>Tier 2</div><div class="lb-wrap"><table class="lb lb--on"><thead><tr><th class="rk">Online Rank</th><th class="md">Model</th><th class="orank">Offline Rank</th><th>Short-Horizon Subtasks</th><th>Long-Horizon Tasks</th><th>Causal</th><th>Thematic</th></tr></thead><tbody><tr><td class="rk">4</td><td class="md">GPT-5.6 Terra</td><td class="orank">14</td><td><span class="v">37.1</span><span class="frac">(23/62)</span></td><td><span class="v">10.0</span><span class="frac">(2/20)</span></td><td><span class="v">20.0</span><span class="frac">(2/10)</span></td><td><span class="v">0.0</span><span class="frac">(0/10)</span></td></tr><tr><td class="rk">5</td><td class="md">GPT-5.6 Luna</td><td class="orank">17</td><td><span class="v">33.9</span><span class="frac">(21/62)</span></td><td><span class="v">10.0</span><span class="frac">(2/20)</span></td><td><span class="v">10.0</span><span class="frac">(1/10)</span></td><td><span class="v">10.0</span><span class="frac">(1/10)</span></td></tr><tr><td class="rk">6</td><td class="md">MiniMax-M3</td><td class="orank">21</td><td><span class="v">29.0</span><span class="frac">(18/62)</span></td><td><span class="v">10.0</span><span class="frac">(2/20)</span></td><td><span class="v">10.0</span><span class="frac">(1/10)</span></td><td><span class="v">10.0</span><span class="frac">(1/10)</span></td></tr></tbody></table></div></div><div class="lb-tier lb-t3"><div class="lb-head"><span class="dot"></span>Tier 3</div><div class="lb-wrap"><table class="lb lb--on"><thead><tr><th class="rk">Online Rank</th><th class="md">Model</th><th class="orank">Offline Rank</th><th>Short-Horizon Subtasks</th><th>Long-Horizon Tasks</th><th>Causal</th><th>Thematic</th></tr></thead><tbody><tr><td class="rk">7</td><td class="md">GLM-5V-Turbo</td><td class="orank">27</td><td><span class="v">27.4</span><span class="frac">(17/62)</span></td><td><span class="v">5.0</span><span class="frac">(1/20)</span></td><td><span class="v">10.0</span><span class="frac">(1/10)</span></td><td><span class="v">0.0</span><span class="frac">(0/10)</span></td></tr><tr><td class="rk">8</td><td class="md">Qwen3.5-397B-A17B</td><td class="orank">29</td><td><span class="v">19.4</span><span class="frac">(12/62)</span></td><td><span class="v">5.0</span><span class="frac">(1/20)</span></td><td><span class="v">10.0</span><span class="frac">(1/10)</span></td><td><span class="v">0.0</span><span class="frac">(0/10)</span></td></tr><tr><td class="rk">9</td><td class="md">Step3-VL-10B</td><td class="orank">32</td><td><span class="v">14.5</span><span class="frac">(9/62)</span></td><td><span class="v">5.0</span><span class="frac">(1/20)</span></td><td><span class="v">10.0</span><span class="frac">(1/10)</span></td><td><span class="v">0.0</span><span class="frac">(0/10)</span></td></tr></tbody></table></div></div><div class="lb-tier lb-t4"><div class="lb-head"><span class="dot"></span>Tier 4</div><div class="lb-wrap"><table class="lb lb--on"><thead><tr><th class="rk">Online Rank</th><th class="md">Model</th><th class="orank">Offline Rank</th><th>Short-Horizon Subtasks</th><th>Long-Horizon Tasks</th><th>Causal</th><th>Thematic</th></tr></thead><tbody><tr><td class="rk">10</td><td class="md">Qwen3.6-35B-A3B</td><td class="orank">34</td><td><span class="v">11.3</span><span class="frac">(7/62)</span></td><td><span class="v">5.0</span><span class="frac">(1/20)</span></td><td><span class="v">10.0</span><span class="frac">(1/10)</span></td><td><span class="v">0.0</span><span class="frac">(0/10)</span></td></tr><tr><td class="rk">11</td><td class="md">InternVL3.5-8B</td><td class="orank">38</td><td><span class="v">3.2</span><span class="frac">(2/62)</span></td><td><span class="v">0.0</span><span class="frac">(0/20)</span></td><td><span class="v">0.0</span><span class="frac">(0/10)</span></td><td><span class="v">0.0</span><span class="frac">(0/10)</span></td></tr><tr><td class="rk">12</td><td class="md">UI-TARS-1.5-7B</td><td class="orank">41</td><td><span class="v">1.6</span><span class="frac">(1/62)</span></td><td><span class="v">0.0</span><span class="frac">(0/20)</span></td><td><span class="v">0.0</span><span class="frac">(0/10)</span></td><td><span class="v">0.0</span><span class="frac">(0/10)</span></td></tr></tbody></table></div></div></div>
+    </div>
+    <figcaption><b>Online results of GameHorizon-Bench.</b> Due to the evaluation costs, we test 12 models in our online track, with three models per offline tier. Each entry reports the success rate as a percentage, followed by the number of passed tasks out of the total in parentheses. The offline and online rankings show a clear positive association.</figcaption>
+  </figure>
+
+  <figure class="figure">
+    <div class="dtable-wrap">
+      <table class="dtable dtable--cmp"><colgroup><col class="c-game"><col span="2"><col span="2"><col span="2"><col class="c-notes"></colgroup><thead><tr class="grp"><th rowspan="2" scope="col" class="c-game">Benchmark</th><th colspan="2" scope="colgroup" class="grp-rec">Benchmark Scope</th><th colspan="2" scope="colgroup" class="grp-ann">Annotation Properties</th><th colspan="2" scope="colgroup" class="grp-span">Evaluation Settings</th><th rowspan="2" scope="col" class="c-notes">Notes</th></tr><tr class="sub"><th scope="col">Model Diversity</th><th scope="col">AAA-Focused</th><th scope="col" class="g">Direct Human Actions</th><th scope="col">Multi-Horizon</th><th scope="col" class="g">Reproducible Offline</th><th scope="col">Stepwise Online</th></tr></thead><tbody><tr class="sec"><td colspan="8">Single-Game Benchmarks</td></tr><tr><th scope="row">MineDojo <span class="ref">(Fan et al., 2022)</span></th><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Online success rates in Minecraft; the game agents only.</td></tr><tr><th scope="row">MCU <span class="ref">(Zheng et al., 2025)</span></th><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Minecraft; VLM-based online scores; game agents only.</td></tr><tr><th scope="row">MineExplorer <span class="ref">(Ju et al., 2026)</span></th><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="notes g">Online milestone rates in Minecraft; the VLMs only.</td></tr><tr class="sec"><td colspan="8">Multi-Game Benchmarks</td></tr><tr><th scope="row">BALROG <span class="ref">(Paglieri et al., 2025)</span></th><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="notes g">Non-AAA; the online progress scores; LLMs and VLMs.</td></tr><tr><th scope="row">VideoGameBench <span class="ref">(Zhang et al., 2025)</span></th><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Retro and classic games; online scores and VLMs only.</td></tr><tr><th scope="row">Orak <span class="ref">(Park et al., 2026)</span></th><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="notes g">Majority non-AAA; the online scores; LLMs and VLMs.</td></tr><tr><th scope="row">GameWorld <span class="ref">(Ouyang et al., 2026)</span></th><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="notes g">Browser mini-games; online scores; VLM agents.</td></tr><tr><th scope="row">GameVerse <span class="ref">(Zhang et al., 2026)</span></th><td class="c"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="no">&#10007;</span></td><td class="c g"><span class="no">&#10007;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="notes g">Mostly non-AAA; online milestone scores; VLM agents.</td></tr><tr class="total"><th scope="row">GameHorizon-Bench (Ours)</th><td class="c"><span class="yes">&#10003;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="c g"><span class="yes">&#10003;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="c g"><span class="yes">&#10003;</span></td><td class="c"><span class="yes">&#10003;</span></td><td class="notes g">AAA; reproducible offline; stepwise online; diverse models.</td></tr></tbody></table>
+    </div>
+    <figcaption><b>Comparison with existing benchmarks.</b> Model diversity denotes evaluation across at least three model paradigms, <i>e.g.</i>, VLMs, UMMs, GUI, coding, and game agents.</figcaption>
+  </figure>
 </section>
 
 <section class="block" id="citation">
-  <div class="sec-head"><span class="num">05 / CITATION</span><h2>Citation.</h2></div>
+  <div class="sec-head"><span class="num">05 / CITATION</span></div>
   <div class="cite"><pre>@article{gamehorizon2026,
   title  = {GameHorizon Suite: Multi-Horizon Data and Evaluation in Gameplay},
   author = {GameHorizon Suite Team},
@@ -256,8 +478,34 @@
   <a href="#"><b>GameHorizon Suite</b></a>
   <div class="fl">
     <a href="#overview">Overview</a><a href="#annotator">Annotator</a><a href="#data">Data</a><a href="#benchmark">Benchmark</a>
-    <a href="https://github.com/TencentARC/GameHorizon" target="_blank" rel="noopener">Code</a><a href="#citation">Citation</a>
+    <a href="#citation">Citation</a><a href="https://github.com/TencentARC/GameHorizon" target="_blank" rel="noopener">Github</a>
   </div>
 </footer>
+
+<script>
+  // Synchronized poster<->video loop. Every tile moves in lockstep on one
+  // master clock: hold poster (DWELL) -> all fade out & play the 8s clip
+  // together -> all fade back to poster -> repeat.
+  (function(){
+    var games=[].slice.call(document.querySelectorAll('.games .game'));
+    var vids=games.map(function(g){return g.querySelector('video');}).filter(Boolean);
+    var PLAY=8000;     // clip length (all clips are exactly 8s)
+    var DWELL=3000;    // poster hold time between plays (ms)
+    function playAll(){
+      vids.forEach(function(v){
+        try{v.currentTime=0;}catch(e){}
+        var p=v.play&&v.play();
+        if(p&&p.catch)p.catch(function(){});
+      });
+      games.forEach(function(g){g.classList.add('playing');});   // posters fade out
+      setTimeout(function(){
+        vids.forEach(function(v){v.pause();try{v.currentTime=0;}catch(e){}});
+        games.forEach(function(g){g.classList.remove('playing');}); // posters fade in
+      },PLAY);
+    }
+    // Initial poster dwell, then run the cycle in lockstep forever.
+    setTimeout(function(){playAll();setInterval(playAll,PLAY+DWELL);},DWELL);
+  })();
+</script>
 </body>
 </html>
