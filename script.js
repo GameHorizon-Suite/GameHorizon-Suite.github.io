@@ -11,22 +11,22 @@ const INTRO_REVEAL_STEP = 110;
 const INTRO_DEFERRED_LOAD_FALLBACK = INTRO_EXPANSION_START - 600;
 const INTRO_MEDIA_VERSION = "6";
 const INTRO_TILE_SOURCES = [
-  "assets/videos/BlackMythWukong.mp4",
-  "assets/videos/GTA5.mp4",
-  "assets/videos/AssassinsCreed.mp4",
-  "assets/videos/GenshinImpact.mp4",
-  "assets/videos/TheWitcher3.mp4",
-  "assets/videos/EldenRing.mp4",
-  "assets/videos/Cyberpunk2077.mp4",
-  "assets/videos/WutheringWaves.mp4",
-  "assets/videos/ApexLegends.mp4",
-  "assets/videos/RedDeadRedemption.mp4",
-  "assets/videos/EldenRingNightreign.mp4",
-  "assets/videos/Valorant.mp4",
-  "assets/videos/Palworld.mp4",
-  "assets/videos/PUBG.mp4",
-  "assets/videos/EscapeFromTarkov.mp4",
-  "assets/videos/DeltaForce.mp4",
+  "assets/covers/GTA5.jpg",
+  "assets/covers/TheWitcher3.jpg",
+  "assets/covers/Palworld.jpg",
+  "assets/covers/ApexLegends.jpg",
+  "assets/covers/GenshinImpact.jpg",
+  "assets/covers/EldenRing.jpg",
+  "assets/covers/Cyberpunk2077.jpg",
+  "assets/covers/WutheringWaves.jpg",
+  "assets/covers/PUBG.jpg",
+  "assets/covers/RedDeadRedemption.jpg",
+  "assets/covers/BlackMythWukong.jpg",
+  "assets/covers/DeltaForce.jpg",
+  "assets/covers/AssassinsCreed.jpg",
+  "assets/covers/EldenRingNightreign.jpg",
+  "assets/covers/WatchDogs.jpg",
+  "assets/covers/HonorOfKingsWorld.jpg",
 ];
 
 function buildIntroTileLayout() {
@@ -60,23 +60,20 @@ function buildIntroVideoGrid(tiles) {
   return tilesByIndex.map((tile, index) => {
     const frame = document.createElement("div");
     const video = document.createElement("video");
-    const posterIndex = String(index + 1).padStart(2, "0");
     const isPriority = tile.revealIndex < INTRO_INITIAL_TILE_COUNT;
     frame.className = "intro-video-tile";
     frame.dataset.revealIndex = String(tile.revealIndex);
-    video.dataset.poster = `assets/videos/intro-posters/tile-${posterIndex}.png?v=${INTRO_MEDIA_VERSION}`;
-    video.dataset.src = `${INTRO_TILE_SOURCES[index]}?v=${INTRO_MEDIA_VERSION}`;
+    // Static official cover art (no video): show the cover as the poster on every tile.
+    video.dataset.poster = `${INTRO_TILE_SOURCES[index]}?v=${INTRO_MEDIA_VERSION}`;
+    video.dataset.src = "";
     video.muted = true;
     video.defaultMuted = true;
     video.loop = true;
     video.playsInline = true;
-    video.preload = isPriority ? "auto" : "none";
+    video.preload = "none";
     video.disablePictureInPicture = true;
-    if (isPriority) {
-      video.dataset.isActivated = "true";
-      video.poster = video.dataset.poster;
-      video.src = video.dataset.src;
-    }
+    video.poster = video.dataset.poster;
+    video.dataset.isActivated = "true";
     frame.appendChild(video);
     introVideoGrid.appendChild(frame);
     return { frame, video, isPriority, ...tile };
