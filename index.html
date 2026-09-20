@@ -91,9 +91,11 @@
   .hz-tag{display:inline-flex;align-items:baseline;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:.85rem;color:#dce4f5}
   .hz-tag i{font-style:normal;color:var(--sky);font-weight:700}
   .hz-tag s{text-decoration:none;color:var(--faint);font-size:.78rem}
-  figure.figure{margin:34px 0 0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#0b1120;box-shadow:0 18px 50px rgba(0,0,0,.35)}
-  figure.figure img{width:100%;height:auto;display:block}
-  figure.figure figcaption{padding:15px 22px;font-size:.9rem;color:var(--muted);line-height:1.62;border-top:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,0))}
+  .sec-head.min{margin-bottom:28px}
+  figure.figure{margin:30px 0 0}
+  figure.figure .plate{background:#f5f7fb;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 18px 50px rgba(0,0,0,.38);overflow:hidden;display:flex}
+  figure.figure img{width:100%;height:auto;display:block;margin:0 auto;border-radius:8px}
+  figure.figure figcaption{margin-top:14px;font-size:.9rem;color:var(--muted);line-height:1.62;max-width:960px}
   figure.figure figcaption b{color:#dbe5f7;font-weight:650}
   .comps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
   @media(max-width:820px){.comps{grid-template-columns:1fr}}
@@ -171,31 +173,21 @@
 </header>
 
 <section class="block" id="overview">
-  <div class="sec-head"><span class="num">01 / OVERVIEW</span><h2>Gameplay understanding, across horizons.</h2></div>
-  <p class="lead">Modern video games are a measurable testbed for AI &mdash; demanding <b>visual understanding</b>,
-    <b>instruction decomposition</b>, <b>goal planning</b>, and <b>precise action control</b> across multiple temporal
-    horizons. <b>GameHorizon Suite</b> unifies data and evaluation into a single yardstick spanning three horizons and
-    <b>21 AAA titles</b>, for diverse model families.</p>
-
-  <div class="hz-tags">
-    <span class="hz-tag"><i>Short-horizon</i> operations <s>1&ndash;5 s</s></span>
-    <span class="hz-tag"><i>Medium-horizon</i> goals <s>1&ndash;2 min</s></span>
-    <span class="hz-tag"><i>Long-horizon</i> strategies <s>5&ndash;8 min</s></span>
-  </div>
+  <div class="sec-head min"><span class="num">01 / OVERVIEW</span></div>
 
   <figure class="figure">
-    <img src="assets/figures/fig1_horizons.jpg" alt="Multi-horizon gameplay across AAA titles: operations, goals, and strategies" loading="lazy" />
-    <figcaption>One action stream, three horizons. From primitive keystrokes and mouse moves up to <b>short-horizon
-      operations</b>, <b>medium-horizon goals</b>, and <b>long-horizon strategies</b> &mdash; a unified yardstick across
-      diverse AAA games. Red text marks key actions or objects in each frame.</figcaption>
-  </figure>
-
-  <figure class="figure">
-    <img src="assets/figures/pipeline.jpg" alt="GameHorizon Suite pipeline: Annotator, Data, and Bench" loading="lazy" />
+    <div class="plate"><img src="assets/figures/pipeline.png" alt="GameHorizon Suite pipeline: Annotator, Data, and Bench" loading="lazy" /></div>
     <figcaption><b>GameHorizon-Annotator</b> turns raw AAA recordings and human keyboard-mouse actions into a bottom-up
       pyramid of L1&ndash;L3 instructions. <b>GameHorizon-Data</b> aligns videos, actions, and instructions into
       temporally aligned triplets. <b>GameHorizon-Bench</b> evaluates through a reproducible offline track
       (T1&ndash;T3 plus diagnostic variants) and a stepwise online track with failure localization.</figcaption>
+  </figure>
+
+  <figure class="figure">
+    <div class="plate"><img src="assets/figures/fig1_horizons.jpg" alt="Multi-horizon gameplay across AAA titles: operations, goals, and strategies" loading="lazy" /></div>
+    <figcaption>One action stream, three horizons. From primitive keystrokes and mouse moves up to <b>short-horizon
+      operations</b>, <b>medium-horizon goals</b>, and <b>long-horizon strategies</b> &mdash; a unified yardstick across
+      diverse AAA games. Red text marks key actions or objects in each frame.</figcaption>
   </figure>
 
   <div class="comps">
