@@ -37,8 +37,30 @@
   .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
   .wall{position:absolute;inset:-2%;z-index:0;display:grid;
     grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(4,1fr);
-    filter:saturate(1.05) brightness(.8) contrast(1.03);transform:scale(1.03)}
+    filter:saturate(1.05) brightness(.8) contrast(1.03);
+    transform:scale(1.18);animation:wallSettle 2.6s .1s cubic-bezier(.16,.8,.2,1) forwards}
+  @keyframes wallSettle{to{transform:scale(1.03)}}
+  .wall .cell{position:relative;overflow:hidden;background:#080d18;
+    opacity:0;transform:scale(.28);filter:brightness(.4);
+    transition:opacity .8s ease, transform 1.05s cubic-bezier(.16,.8,.2,1), filter 1.1s ease}
+  .wall .cell.in{opacity:1;transform:scale(1);filter:brightness(1)}
   .wall video{width:100%;height:100%;object-fit:cover;display:block;background:#0a0f1a}
+
+  /* hero content entrance */
+  .hero-in .emblem,.hero-in .kicker,.hero-in h1,.hero-in .paper-title,.hero-in .tagline,.hero-in .links{
+    opacity:0;transform:translateY(18px);animation:riseIn .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .hero-in .emblem{animation-delay:.15s}
+  .hero-in .kicker{animation-delay:1.5s}
+  .hero-in h1{animation-delay:1.65s}
+  .hero-in .paper-title{animation-delay:1.85s}
+  .hero-in .tagline{animation-delay:2.0s}
+  .hero-in .links{animation-delay:2.2s}
+  @keyframes riseIn{to{opacity:1;transform:translateY(0)}}
+  @media (prefers-reduced-motion:reduce){
+    .wall{animation:none;transform:scale(1.03)}
+    .wall .cell{opacity:1;transform:none;filter:none;transition:none}
+    .hero-in .emblem,.hero-in .kicker,.hero-in h1,.hero-in .paper-title,.hero-in .tagline,.hero-in .links{animation:none;opacity:1;transform:none}
+  }
   .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
     background:
       radial-gradient(1200px 820px at 50% 40%,rgba(5,8,15,.28),rgba(5,8,15,.82) 62%,var(--bg) 100%),
@@ -213,13 +235,24 @@
   ];
   var V = function(f){return "assets/videos/"+f+".mp4";};
 
-  // Build hero video wall (fill 20 tiles)
+  // Build hero video wall + spiral reveal from the center
   var wall = document.getElementById('wall');
-  GAMES.forEach(function(g){
+  var COLS=5, ROWS=4, cc=(COLS-1)/2, cr=(ROWS-1)/2;
+  var cells=[];
+  GAMES.forEach(function(g,i){
+    var col=i%COLS, row=Math.floor(i/COLS);
+    var cell=document.createElement('div'); cell.className='cell';
     var v=document.createElement('video');
     v.src=V(g[1]); v.muted=true; v.loop=true; v.playsInline=true; v.autoplay=true; v.preload="auto";
     v.setAttribute('muted',''); v.setAttribute('playsinline','');
-    wall.appendChild(v); v.play().catch(function(){});
+    cell.appendChild(v); wall.appendChild(cell);
+    v.play().catch(function(){});
+    cells.push({cell:cell, ring:Math.max(Math.abs(col-cc),Math.abs(row-cr)), i:i});
+  });
+  // reveal center-out (ring by ring), smooth spiral bloom
+  cells.sort(function(a,b){return (a.ring-b.ring) || (a.i-b.i);});
+  cells.forEach(function(c,idx){
+    setTimeout(function(){ c.cell.classList.add('in'); }, 200 + idx*95);
   });
 
   // Build games grid (play only when visible to save CPU)
