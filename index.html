@@ -1,120 +1,194 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="GameHorizon Suite — Multi-Horizon Data and Evaluation in Gameplay">
-    <meta property="og:title" content="GameHorizon Suite">
-    <meta property="og:description" content="Multi-Horizon Data and Evaluation in Gameplay">
-    <title>GameHorizon Suite — Multi-Horizon Data and Evaluation in Gameplay</title>
-    <link rel="icon" type="image/png" href="assets/logo.png">
-    <link rel="stylesheet" href="styles.css?v=1">
-  </head>
-  <body>
-    <div class="intro-scroll" id="intro-scroll">
-      <section class="intro-screen" id="intro-screen" aria-label="GameHorizon Suite introduction">
-        <div class="intro-video-plane intro-video-wall" id="intro-video-wall" aria-hidden="true">
-          <div class="intro-video-grid" id="intro-video-grid"></div>
-        </div>
-        <div class="logo-mask-layer" id="logo-mask-layer" aria-hidden="true">
-          <p class="logo-mask-text" id="logo-mask-text">Game<span id="logo-mask-focus">H</span>orizon</p>
-        </div>
-        <div class="intro-content" id="intro-content">
-          <p class="intro-kicker">GameHorizon Suite / Gameplay Understanding</p>
-          <h1 class="intro-title">
-            <span class="logo-slot" id="logo-slot">GameHorizon Suite</span>
-            <span class="intro-paper-title">Multi-Horizon Data and Evaluation in Gameplay</span>
-          </h1>
-          <div class="intro-authors" aria-label="Authors and affiliations">
-            <div class="intro-author-list">
-              <p class="intro-author-row">
-                <span class="intro-author-static">Yiran Wang<sup>1,*,&#8224;</sup></span><span class="intro-author-static">Xingyilang Yin<sup>1,2,6,*</sup></span><span class="intro-author-static">Junfu Pu<sup>1,*</sup></span><span class="intro-author-static">Guangzhi Wang<sup>1,*</sup></span><span class="intro-author-static">Kaifeng Li<sup>1</sup></span><span class="intro-author-static">Mingyu Ouyang<sup>1,3</sup></span><span class="intro-author-static">Huiqiang Sun<sup>1,4</sup></span><span class="intro-author-static">Lingen Li<sup>1,5</sup></span>
-              </p>
-              <p class="intro-author-row">
-                <span class="intro-author-static">Cheng Cheng<sup>1</sup></span><span class="intro-author-static">Wangbo Yu<sup>1</sup></span><span class="intro-author-static">Honghao Chen<sup>1</sup></span><span class="intro-author-static">Xiaodong Cun<sup>1,2,&#9993;</sup></span><span class="intro-author-static">Chi-Man Pun<sup>6</sup></span><span class="intro-author-static">Zhiguo Cao<sup>4</sup></span><span class="intro-author-static">Ying Shan<sup>1</sup></span>
-              </p>
-            </div>
-            <p class="intro-affiliations"><span><sup>1</sup>ARC Lab, Tencent</span><span><sup>2</sup>GVC Lab, Great Bay University</span><span><sup>3</sup>NUS</span><span><sup>4</sup>HUST</span><span><sup>5</sup>MMLab, CUHK</span><span><sup>6</sup>University of Macau</span></p>
-            <p class="intro-affiliations"><span>&#8224; Project Lead</span><span>* Equal Contribution</span><span>&#9993; Corresponding Author</span></p>
-          </div>
-          <div class="project-links intro-project-links">
-            <a class="project-link" href="#" onclick="return false;" style="opacity:.5;cursor:not-allowed" aria-disabled="true">
-              <span class="icon icon--arxiv"><img src="assets/icons/arxiv.svg" alt=""></span>
-              <span>Paper · Soon</span>
-            </a>
-            <a class="project-link" href="https://github.com/GameHorizon-Suite/GameHorizon" target="_blank" rel="noopener noreferrer">
-              <span class="icon"><img src="assets/icons/github.svg" alt=""></span>
-              <span>Code</span>
-            </a>
-            <a class="project-link" href="#" onclick="return false;" style="opacity:.5;cursor:not-allowed" aria-disabled="true">
-              <span class="icon icon--huggingface"><img src="assets/icons/huggingface.svg" alt=""></span>
-              <span>Hugging Face · Soon</span>
-            </a>
-            <a class="project-link" href="#" onclick="return false;" style="opacity:.5;cursor:not-allowed" aria-disabled="true">
-              <span class="icon icon--huggingface"><img src="assets/icons/huggingface.svg" alt=""></span>
-              <span>Dataset · Soon</span>
-            </a>
-          </div>
-        </div>
-        <p class="intro-footnote">GAMEHORIZON SUITE · 2026</p>
-        <div class="intro-hint" id="intro-hint" aria-hidden="true">
-          <div class="intro-start-cue">
-            <div class="intro-start-logo"><strong>GameHorizon Suite</strong></div>
-            <span class="intro-start-prompt">SCROLL TO EXPLORE</span>
-            <i></i>
-          </div>
-        </div>
-      </section>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GameHorizon Suite — Multi-Horizon Data and Evaluation in Gameplay</title>
+<meta name="description" content="GameHorizon Suite: multi-horizon data and evaluation for gameplay understanding across diverse AAA titles." />
+<meta property="og:title" content="GameHorizon Suite" />
+<meta property="og:description" content="Multi-Horizon Data and Evaluation in Gameplay" />
+<link rel="icon" type="image/png" href="assets/logo.png" />
+<style>
+  :root{
+    --bg:#05080f; --ink:#eaf0fb; --muted:#93a1bd; --faint:#5b6884;
+    --blue:#5b8cff; --sky:#8fb2ff; --orange:#f7a53b; --amber:#ffce85;
+    --line:rgba(255,255,255,.12); --card:rgba(255,255,255,.05); --maxw:1160px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .kicker{font-size:.8rem;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);font-weight:700}
+
+  /* nav */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:15px 28px;background:linear-gradient(180deg,rgba(5,8,15,.8),rgba(5,8,15,0));backdrop-filter:blur(6px)}
+  .nav img{height:30px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.7))}
+  .nav .nl{display:flex;gap:24px;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .nav .nl a:hover{color:#fff}
+  @media(max-width:760px){.nav .nl{display:none}}
+
+  /* hero */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .wall{position:absolute;inset:0;z-index:0;display:grid;
+    grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);
+    filter:saturate(1.03) brightness(.82)}
+  .wall img{width:100%;height:100%;object-fit:cover;display:block;background:#0a0f1a}
+  @media(max-width:820px){.wall{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(6,1fr)}}
+  .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:
+      radial-gradient(1200px 800px at 50% 42%,rgba(5,8,15,.32),rgba(5,8,15,.84) 62%,var(--bg) 100%),
+      linear-gradient(180deg,rgba(5,8,15,.88) 0%,rgba(5,8,15,.30) 24%,rgba(5,8,15,.5) 66%,var(--bg) 100%);
+    box-shadow:inset 0 0 240px 70px rgba(0,0,0,.8)}
+  .hero-in{position:relative;z-index:2;text-align:center;padding:96px 20px 64px;max-width:940px}
+  .emblem{width:172px;height:auto;margin:0 auto 12px;
+    filter:drop-shadow(0 12px 46px rgba(91,140,255,.5)) drop-shadow(0 0 26px rgba(247,165,59,.28))}
+  h1{margin:.3rem 0 .1rem;font-weight:800;letter-spacing:-.02em;line-height:1;
+    font-size:clamp(2.7rem,8vw,5.4rem);
+    background:linear-gradient(96deg,#9cbcff 0%,#f2f6ff 46%,#ffc981 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 4px 30px rgba(0,0,0,.5))}
+  .paper-title{font-size:clamp(1.05rem,2.6vw,1.5rem);color:#e4ebfb;font-weight:500;margin:.5rem auto 0;max-width:760px}
+  .tagline{color:var(--muted);font-size:1rem;line-height:1.6;margin:.9rem auto 0;max-width:640px}
+  /* authors */
+  .authors{margin:1.4rem auto 0;max-width:820px;color:#cfd8ea;font-size:.95rem;line-height:1.7}
+  .authors .aff{color:var(--faint);font-size:.82rem;margin-top:.35rem;line-height:1.6}
+  .authors sup{color:var(--sky)}
+
+  .links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
+  .link{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:999px;
+    border:1px solid var(--line);background:var(--card);backdrop-filter:blur(8px);
+    font-size:.95rem;font-weight:650;color:#eef3ff;transition:.18s ease}
+  .link svg{width:18px;height:18px;fill:currentColor}
+  .link.live:hover{transform:translateY(-2px);border-color:var(--blue);background:rgba(91,140,255,.16);box-shadow:0 10px 34px rgba(91,140,255,.34)}
+  .link.soon{opacity:.5;cursor:not-allowed}
+  .link .st{font-size:.6rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:rgba(247,165,59,.18);color:var(--amber);border:1px solid rgba(247,165,59,.34)}
+
+  /* sections */
+  section.block{position:relative;z-index:2;background:var(--bg);max-width:var(--maxw);margin:0 auto;padding:104px 26px}
+  .sec-head{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:38px}
+  .sec-head h2{margin:0;font-size:clamp(1.7rem,4vw,2.5rem);font-weight:750}
+  .sec-head .num{color:var(--faint);font-size:.8rem;letter-spacing:.24em;font-weight:700;white-space:nowrap}
+  .lead{font-size:1.1rem;line-height:1.75;color:#cdd7ea;max-width:820px}
+  .lead b{color:#fff;font-weight:650}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+  .stat{border:1px solid var(--line);border-radius:16px;padding:22px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.01))}
+  .stat .v{font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:800;background:linear-gradient(92deg,var(--sky),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .k{color:var(--muted);font-size:.9rem;margin-top:6px}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .games{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:900px){.games{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:560px){.games{grid-template-columns:repeat(2,1fr)}}
+  .game{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:16/10;border:1px solid var(--line);background:#0a0f1a}
+  .game img{width:100%;height:100%;object-fit:cover;display:block;transition:.35s;transform:scale(1.02)}
+  .game:hover img{transform:scale(1.08)}
+  .game .name{position:absolute;left:0;right:0;bottom:0;padding:9px 11px;font-size:.82rem;font-weight:600;background:linear-gradient(0deg,rgba(0,0,0,.82),transparent);color:#fff}
+  .cite{border:1px solid var(--line);border-radius:14px;background:#0a0f18;padding:22px 24px;overflow:auto}
+  .cite pre{margin:0;color:#c7d2ea;font-size:.9rem;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}
+  footer{position:relative;z-index:2;background:var(--bg);border-top:1px solid var(--line);max-width:var(--maxw);margin:0 auto;padding:40px 26px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;color:var(--faint);font-size:.86rem}
+  footer .fl{display:flex;gap:20px}
+  footer a:hover{color:#fff}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <img src="assets/logo_flat.png" alt="GameHorizon Suite" />
+  <div class="nl"><a href="#overview">Overview</a><a href="#games">Games</a><a href="#citation">Citation</a><a href="https://github.com/GameHorizon-Suite/GameHorizon" target="_blank" rel="noopener">Code</a></div>
+</nav>
+
+<header class="hero">
+  <div class="wall" aria-hidden="true">
+    <img src="assets/covers/GTA5.jpg" alt=""><img src="assets/covers/TheWitcher3.jpg" alt=""><img src="assets/covers/Palworld.jpg" alt=""><img src="assets/covers/ApexLegends.jpg" alt="">
+    <img src="assets/covers/GenshinImpact.jpg" alt=""><img src="assets/covers/EldenRing.jpg" alt=""><img src="assets/covers/Cyberpunk2077.jpg" alt=""><img src="assets/covers/WutheringWaves.jpg" alt="">
+    <img src="assets/covers/PUBG.jpg" alt=""><img src="assets/covers/RedDeadRedemption.jpg" alt=""><img src="assets/covers/BlackMythWukong.jpg" alt=""><img src="assets/covers/DeltaForce.jpg" alt="">
+    <img src="assets/covers/AssassinsCreed.jpg" alt=""><img src="assets/covers/EldenRingNightreign.jpg" alt=""><img src="assets/covers/WatchDogs.jpg" alt=""><img src="assets/covers/HonorOfKingsWorld.jpg" alt="">
+  </div>
+  <div class="scrim"></div>
+  <div class="hero-in">
+    <img class="emblem" src="assets/logo.png" alt="GameHorizon Suite logo" />
+    <p class="kicker">GameHorizon Suite / Gameplay Understanding</p>
+    <h1>GameHorizon&nbsp;Suite</h1>
+    <p class="paper-title">Multi-Horizon Data and Evaluation in Gameplay</p>
+    <p class="tagline">A large-scale suite for multi-horizon gameplay understanding across diverse AAA titles,
+      pairing a <b>reproducible offline track</b> with a <b>stepwise online track</b>.</p>
+    <div class="authors">
+      Yiran Wang<sup>1,*,&#8224;</sup>, Xingyilang Yin<sup>1,2,6,*</sup>, Junfu Pu<sup>1,*</sup>, Guangzhi Wang<sup>1,*</sup>, Kaifeng Li<sup>1</sup>, Mingyu Ouyang<sup>1,3</sup>, Huiqiang Sun<sup>1,4</sup>, Lingen Li<sup>1,5</sup>,
+      Cheng Cheng<sup>1</sup>, Wangbo Yu<sup>1</sup>, Honghao Chen<sup>1</sup>, Xiaodong Cun<sup>1,2,&#9993;</sup>, Chi-Man Pun<sup>6</sup>, Zhiguo Cao<sup>4</sup>, Ying Shan<sup>1</sup>
+      <div class="aff"><sup>1</sup>ARC Lab, Tencent&nbsp;&nbsp; <sup>2</sup>GVC Lab, Great Bay University&nbsp;&nbsp; <sup>3</sup>NUS&nbsp;&nbsp; <sup>4</sup>HUST&nbsp;&nbsp; <sup>5</sup>MMLab, CUHK&nbsp;&nbsp; <sup>6</sup>University of Macau</div>
+      <div class="aff">&#8224; Project Lead&nbsp;&nbsp; * Equal Contribution&nbsp;&nbsp; &#9993; Corresponding Author</div>
     </div>
-    <div id="site-shell">
-    <nav class="nav">
-      <a class="brand cover-link" href="#cover" aria-controls="intro-screen"><span>GameHorizon Suite</span></a>
-      <div class="navlinks">
-        <a class="cover-link" href="#cover" aria-controls="intro-screen">Cover</a><a href="#overview">Overview</a><a href="#citation">Citation</a><a href="https://github.com/GameHorizon-Suite/GameHorizon" target="_blank" rel="noopener noreferrer">Code</a>
-      </div>
-    </nav>
-    <main>
-      <div class="story-dark" id="story">
-      <section class="overview-section" id="overview">
-        <div class="overview-content">
-        <header class="overview-head">
-          <div class="label">01 / OVERVIEW</div>
-        </header>
-        <div class="showcase-video">
-          <video muted loop playsinline autoplay preload="metadata" poster="assets/videos/intro-posters/tile-01.png">
-            <source src="assets/videos/BlackMythWukong.mp4" type="video/mp4">
-            Your browser does not support video.
-          </video>
-        </div>
-        <div class="overview-copy">
-          <p>GameHorizon Suite studies how models follow and understand natural-language instructions during real gameplay
-             &mdash; from fine-grained operations to mid-level goals and long-horizon missions &mdash; across diverse AAA titles,
-             with a reproducible offline track and a stepwise online track.</p>
-        </div>
-        </div>
-      </section>
-      </div>
-      <section class="citation" id="citation">
-        <div class="label">02 / CITATION</div>
-        <div class="citation-grid">
-          <pre><code>@article{gamehorizon2026,
+    <div class="links">
+      <span class="link soon">
+        <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm8 1.5V8h4.5L14 3.5z"/></svg>
+        Paper <span class="st">Soon</span>
+      </span>
+      <a class="link live" href="https://github.com/GameHorizon-Suite/GameHorizon" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C17 5 18 5.3 18 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+        Code
+      </a>
+      <span class="link soon">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8.5 10a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm7 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM7 15h10a5 5 0 0 1-10 0z"/></svg>
+        Hugging Face <span class="st">Soon</span>
+      </span>
+      <span class="link soon">
+        <svg viewBox="0 0 24 24"><path d="M12 2c4.4 0 8 1.6 8 3.5v13c0 1.9-3.6 3.5-8 3.5s-8-1.6-8-3.5v-13C4 3.6 7.6 2 12 2zm0 2c-3.5 0-6 1.1-6 1.5S8.5 7 12 7s6-1.1 6-1.5S15.5 4 12 4z"/></svg>
+        Dataset <span class="st">Soon</span>
+      </span>
+    </div>
+  </div>
+</header>
+
+<section class="block" id="overview">
+  <div class="sec-head"><span class="num">01 / OVERVIEW</span><h2>Gameplay understanding, across horizons.</h2></div>
+  <p class="lead"><b>GameHorizon Suite</b> studies how models follow and understand natural-language instructions during
+    real gameplay &mdash; from fine-grained <b>operations</b> to mid-level <b>goals</b> and long-horizon <b>missions</b> &mdash;
+    across diverse AAA titles with human keyboard-and-mouse action traces, evaluated through a
+    <b>reproducible offline track</b> and a <b>stepwise online track</b>.</p>
+  <div class="stats">
+    <div class="stat"><div class="v">21</div><div class="k">AAA titles</div></div>
+    <div class="stat"><div class="v">Multi-Horizon</div><div class="k">operation · goal · mission</div></div>
+    <div class="stat"><div class="v">Offline + Online</div><div class="k">reproducible &amp; stepwise</div></div>
+    <div class="stat"><div class="v">45</div><div class="k">models · five paradigms</div></div>
+  </div>
+</section>
+
+<section class="block" id="games">
+  <div class="sec-head"><span class="num">02 / GAMES</span><h2>A wall of worlds.</h2></div>
+  <div class="games">
+    <div class="game"><img src="assets/covers/BlackMythWukong.jpg" alt=""><div class="name">Black Myth: Wukong</div></div>
+    <div class="game"><img src="assets/covers/EldenRing.jpg" alt=""><div class="name">Elden Ring</div></div>
+    <div class="game"><img src="assets/covers/Cyberpunk2077.jpg" alt=""><div class="name">Cyberpunk 2077</div></div>
+    <div class="game"><img src="assets/covers/RedDeadRedemption.jpg" alt=""><div class="name">Red Dead Redemption 2</div></div>
+    <div class="game"><img src="assets/covers/GTA5.jpg" alt=""><div class="name">GTA V</div></div>
+    <div class="game"><img src="assets/covers/TheWitcher3.jpg" alt=""><div class="name">The Witcher 3</div></div>
+    <div class="game"><img src="assets/covers/AssassinsCreed.jpg" alt=""><div class="name">Assassin's Creed</div></div>
+    <div class="game"><img src="assets/covers/GenshinImpact.jpg" alt=""><div class="name">Genshin Impact</div></div>
+    <div class="game"><img src="assets/covers/EldenRingNightreign.jpg" alt=""><div class="name">Elden Ring: Nightreign</div></div>
+    <div class="game"><img src="assets/covers/ApexLegends.jpg" alt=""><div class="name">Apex Legends</div></div>
+    <div class="game"><img src="assets/covers/PUBG.jpg" alt=""><div class="name">PUBG</div></div>
+    <div class="game"><img src="assets/covers/Palworld.jpg" alt=""><div class="name">Palworld</div></div>
+    <div class="game"><img src="assets/covers/DeltaForce.jpg" alt=""><div class="name">Delta Force</div></div>
+    <div class="game"><img src="assets/covers/WatchDogs.jpg" alt=""><div class="name">Watch Dogs</div></div>
+    <div class="game"><img src="assets/covers/WutheringWaves.jpg" alt=""><div class="name">Wuthering Waves</div></div>
+    <div class="game"><img src="assets/covers/HonorOfKingsWorld.jpg" alt=""><div class="name">Honor of Kings: World</div></div>
+  </div>
+</section>
+
+<section class="block" id="citation">
+  <div class="sec-head"><span class="num">03 / CITATION</span><h2>Citation.</h2></div>
+  <div class="cite"><pre>@article{gamehorizon2026,
   title  = {GameHorizon Suite: Multi-Horizon Data and Evaluation in Gameplay},
   author = {GameHorizon Suite Team},
   year   = {2026},
   note   = {Preprint coming soon}
-}</code></pre>
-        </div>
-      </section>
-    </main>
-    <footer class="footer">
-      <a class="brand cover-link" href="#cover" aria-controls="intro-screen"><span>GameHorizon Suite</span></a>
-      <p>Multi-horizon data and evaluation in gameplay.</p>
-      <div class="footer-links">
-        <a href="https://github.com/GameHorizon-Suite/GameHorizon" target="_blank" rel="noopener noreferrer">Code</a><a href="#citation">Citation</a><a class="cover-link" href="#cover" aria-controls="intro-screen">Back to top &#8593;</a>
-      </div>
-    </footer>
-    </div>
-  <script src="assets/demo-manifest.js?v=4"></script>
-  <script src="script.js?v=1"></script>
-  </body>
+}</pre></div>
+</section>
+
+<footer>
+  <a href="#"><b>GameHorizon Suite</b></a>
+  <div class="fl"><a href="https://github.com/GameHorizon-Suite/GameHorizon" target="_blank" rel="noopener">Code</a><a href="#overview">Overview</a><a href="#games">Games</a><a href="#citation">Citation</a></div>
+</footer>
+</body>
 </html>
