@@ -25,10 +25,8 @@
   a{color:inherit;text-decoration:none}
   .kicker{font-size:.8rem;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);font-weight:700}
 
-  /* nav */
   .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
     padding:15px 28px;background:linear-gradient(180deg,rgba(5,8,15,.8),rgba(5,8,15,0));backdrop-filter:blur(6px)}
-  .nav img{height:30px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.7))}
   .nav .brand{display:inline-flex;align-items:center;gap:10px}
   .nav .brand img{height:30px;width:auto;filter:drop-shadow(0 2px 8px rgba(0,0,0,.7))}
   .nav .brand span{font-family:"Oxanium",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
@@ -36,41 +34,37 @@
     background:linear-gradient(96deg,#9cbcff 0%,#f2f6ff 50%,#ffc981 100%);
     -webkit-background-clip:text;background-clip:text;color:transparent;
     filter:drop-shadow(0 2px 10px rgba(0,0,0,.55))}
-  .nav .nl{display:flex;gap:24px;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .nav .nl{display:flex;gap:22px;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
   .nav .nl a:hover{color:#fff}
-  @media(max-width:760px){.nav .nl{display:none}}
+  @media(max-width:820px){.nav .nl{display:none}}
 
-  /* hero */
   .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
   .wall{position:absolute;inset:0;z-index:0;display:grid;
-    grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);
+    grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(3,1fr);
     filter:saturate(1.03) brightness(.82)}
   .wall img{width:100%;height:100%;object-fit:cover;display:block;background:#0a0f1a}
-  @media(max-width:820px){.wall{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(6,1fr)}}
+  @media(max-width:820px){.wall{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(5,1fr)}}
   .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
     background:
       radial-gradient(1100px 760px at 50% 44%,rgba(5,8,15,.08),rgba(5,8,15,.50) 66%,rgba(5,8,15,.82) 100%),
       linear-gradient(180deg,rgba(5,8,15,.60) 0%,rgba(5,8,15,.03) 28%,rgba(5,8,15,.20) 70%,var(--bg) 100%);
     box-shadow:inset 0 0 200px 50px rgba(0,0,0,.5)}
-  .hero-in .kicker,.hero-in .paper-title,.hero-in .tagline,.hero-in .authors{text-shadow:0 2px 16px rgba(0,0,0,.85)}
-  .hero-in{position:relative;z-index:2;text-align:center;padding:96px 20px 64px;max-width:940px}
+  .hero-in{position:relative;z-index:2;text-align:center;padding:96px 20px 64px;max-width:1000px}
   .hero-in::before{content:"";position:absolute;z-index:-1;left:50%;top:50%;transform:translate(-50%,-50%);
-    width:min(1180px,116%);height:116%;pointer-events:none;filter:blur(22px);
+    width:min(1220px,118%);height:116%;pointer-events:none;filter:blur(22px);
     background:radial-gradient(58% 54% at 50% 50%,rgba(5,8,15,.9),rgba(5,8,15,.62) 50%,rgba(5,8,15,0) 78%)}
   .emblem{width:172px;height:auto;margin:0 auto 12px;
     filter:drop-shadow(0 12px 46px rgba(91,140,255,.5)) drop-shadow(0 0 26px rgba(247,165,59,.28))}
   h1{margin:.3rem 0 .1rem;font-family:"Oxanium",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    font-weight:700;letter-spacing:0;line-height:1.04;
-    font-size:clamp(2.5rem,7.4vw,5.1rem);
+    font-weight:700;letter-spacing:0;line-height:1.04;font-size:clamp(2.5rem,7.4vw,5.1rem);
     background:linear-gradient(96deg,#9cbcff 0%,#f2f6ff 46%,#ffc981 100%);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-    filter:drop-shadow(0 4px 30px rgba(0,0,0,.5))}
+    -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 30px rgba(0,0,0,.5))}
   .paper-title{font-size:clamp(1.05rem,2.6vw,1.5rem);color:#e4ebfb;font-weight:500;margin:.5rem auto 0;max-width:760px}
-  .tagline{color:var(--muted);font-size:1rem;line-height:1.6;margin:.9rem auto 0;max-width:640px}
-  /* authors */
-  .authors{margin:1.4rem auto 0;max-width:820px;color:#eaf1ff;font-size:.98rem;font-weight:500;line-height:1.7}
-  .authors .aff{color:#c2ccdf;font-size:.88rem;font-weight:600;margin-top:.4rem;line-height:1.6}
-  .authors .arow{display:block;margin:.18rem 0}
+  .tagline{color:var(--muted);font-size:1rem;line-height:1.6;margin:.9rem auto 0;max-width:720px}
+  .hero-in .kicker,.hero-in .paper-title,.hero-in .tagline,.hero-in .authors{text-shadow:0 2px 16px rgba(0,0,0,.85)}
+  .authors{margin:1.4rem auto 0;max-width:1120px;color:#eaf1ff;font-size:.88rem;font-weight:500;line-height:1.7}
+  .authors .arow{display:block;margin:.16rem 0}
+  .authors .aff{color:#c2ccdf;font-size:.82rem;font-weight:600;margin-top:.4rem;line-height:1.6}
   .authors sup{color:var(--sky);font-weight:700}
 
   .links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
@@ -82,13 +76,13 @@
   .link.soon{opacity:.5;cursor:not-allowed}
   .link .st{font-size:.6rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:rgba(247,165,59,.18);color:var(--amber);border:1px solid rgba(247,165,59,.34)}
 
-  /* sections */
   section.block{position:relative;z-index:2;background:var(--bg);max-width:var(--maxw);margin:0 auto;padding:104px 26px}
   .sec-head{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:38px}
   .sec-head h2{margin:0;font-size:clamp(1.7rem,4vw,2.5rem);font-weight:750}
   .sec-head .num{color:var(--faint);font-size:.8rem;letter-spacing:.24em;font-weight:700;white-space:nowrap}
   .lead{font-size:1.1rem;line-height:1.75;color:#cdd7ea;max-width:820px}
   .lead b{color:#fff;font-weight:650}
+  .soon-badge{display:inline-block;margin-left:6px;font-size:.62rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:rgba(247,165,59,.18);color:var(--amber);border:1px solid rgba(247,165,59,.34);vertical-align:middle}
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
   .stat{border:1px solid var(--line);border-radius:16px;padding:22px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.01))}
   .stat .v{font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:800;background:linear-gradient(92deg,var(--sky),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -104,22 +98,28 @@
   .cite{border:1px solid var(--line);border-radius:14px;background:#0a0f18;padding:22px 24px;overflow:auto}
   .cite pre{margin:0;color:#c7d2ea;font-size:.9rem;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}
   footer{position:relative;z-index:2;background:var(--bg);border-top:1px solid var(--line);max-width:var(--maxw);margin:0 auto;padding:40px 26px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;color:var(--faint);font-size:.86rem}
-  footer .fl{display:flex;gap:20px}
+  footer .fl{display:flex;gap:20px;flex-wrap:wrap}
   footer a:hover{color:#fff}
 </style>
 </head>
 <body>
 <nav class="nav">
   <a class="brand" href="#"><img src="assets/logo_badge.png" alt="" /><span>GameHorizon&nbsp;Suite</span></a>
-  <div class="nl"><a href="#overview">Overview</a><a href="#games">Games</a><a href="#citation">Citation</a><a href="https://github.com/TencentARC/GameHorizon" target="_blank" rel="noopener">Code</a></div>
+  <div class="nl">
+    <a href="#overview">Overview</a>
+    <a href="#annotator">Annotator</a>
+    <a href="#data">Data</a>
+    <a href="#benchmark">Benchmark</a>
+    <a href="https://github.com/TencentARC/GameHorizon" target="_blank" rel="noopener">Code</a>
+    <a href="#citation">Citation</a>
+  </div>
 </nav>
 
 <header class="hero">
   <div class="wall" aria-hidden="true">
-    <img src="assets/covers/GTA5.jpg" alt=""><img src="assets/covers/TheWitcher3.jpg" alt=""><img src="assets/covers/Palworld.jpg" alt=""><img src="assets/covers/ApexLegends.jpg" alt="">
-    <img src="assets/covers/GenshinImpact.jpg" alt=""><img src="assets/covers/EldenRing.jpg" alt=""><img src="assets/covers/Cyberpunk2077.jpg" alt=""><img src="assets/covers/WutheringWaves.jpg" alt="">
-    <img src="assets/covers/PUBG.jpg" alt=""><img src="assets/covers/RedDeadRedemption.jpg" alt=""><img src="assets/covers/BlackMythWukong.jpg" alt=""><img src="assets/covers/DeltaForce.jpg" alt="">
-    <img src="assets/covers/AssassinsCreed.jpg" alt=""><img src="assets/covers/EldenRingNightreign.jpg" alt=""><img src="assets/covers/WatchDogs.jpg" alt=""><img src="assets/covers/HonorOfKingsWorld.jpg" alt="">
+    <img src="assets/covers/GTA5.jpg" alt=""><img src="assets/covers/TheWitcher3.jpg" alt=""><img src="assets/covers/Palworld.jpg" alt=""><img src="assets/covers/ApexLegends.jpg" alt=""><img src="assets/covers/PUBG.jpg" alt="">
+    <img src="assets/covers/EldenRing.jpg" alt=""><img src="assets/covers/Cyberpunk2077.jpg" alt=""><img src="assets/covers/BlackMythWukong.jpg" alt=""><img src="assets/covers/RedDeadRedemption.jpg" alt=""><img src="assets/covers/EldenRingNightreign.jpg" alt="">
+    <img src="assets/covers/AssassinsCreed.jpg" alt=""><img src="assets/covers/DeltaForce.jpg" alt=""><img src="assets/covers/WatchDogs.jpg" alt=""><img src="assets/covers/HonorOfKingsWorld.jpg" alt=""><img src="assets/covers/GenshinImpact.jpg" alt="">
   </div>
   <div class="scrim"></div>
   <div class="hero-in">
@@ -168,8 +168,13 @@
   </div>
 </section>
 
-<section class="block" id="games">
-  <div class="sec-head"><span class="num">02 / GAMES</span><h2>A wall of worlds.</h2></div>
+<section class="block" id="annotator">
+  <div class="sec-head"><span class="num">02 / ANNOTATOR</span><h2>Annotator.<span class="soon-badge">Coming soon</span></h2></div>
+  <p class="lead">Our multi-level annotation toolkit and pipeline will be released here.</p>
+</section>
+
+<section class="block" id="data">
+  <div class="sec-head"><span class="num">03 / DATA</span><h2>A wall of worlds.</h2></div>
   <div class="games">
     <div class="game"><img src="assets/covers/BlackMythWukong.jpg" alt=""><div class="name">Black Myth: Wukong</div></div>
     <div class="game"><img src="assets/covers/EldenRing.jpg" alt=""><div class="name">Elden Ring</div></div>
@@ -178,20 +183,24 @@
     <div class="game"><img src="assets/covers/GTA5.jpg" alt=""><div class="name">GTA V</div></div>
     <div class="game"><img src="assets/covers/TheWitcher3.jpg" alt=""><div class="name">The Witcher 3</div></div>
     <div class="game"><img src="assets/covers/AssassinsCreed.jpg" alt=""><div class="name">Assassin's Creed</div></div>
-    <div class="game"><img src="assets/covers/GenshinImpact.jpg" alt=""><div class="name">Genshin Impact</div></div>
     <div class="game"><img src="assets/covers/EldenRingNightreign.jpg" alt=""><div class="name">Elden Ring: Nightreign</div></div>
     <div class="game"><img src="assets/covers/ApexLegends.jpg" alt=""><div class="name">Apex Legends</div></div>
     <div class="game"><img src="assets/covers/PUBG.jpg" alt=""><div class="name">PUBG</div></div>
     <div class="game"><img src="assets/covers/Palworld.jpg" alt=""><div class="name">Palworld</div></div>
     <div class="game"><img src="assets/covers/DeltaForce.jpg" alt=""><div class="name">Delta Force</div></div>
     <div class="game"><img src="assets/covers/WatchDogs.jpg" alt=""><div class="name">Watch Dogs</div></div>
-    <div class="game"><img src="assets/covers/WutheringWaves.jpg" alt=""><div class="name">Wuthering Waves</div></div>
+    <div class="game"><img src="assets/covers/GenshinImpact.jpg" alt=""><div class="name">Genshin Impact</div></div>
     <div class="game"><img src="assets/covers/HonorOfKingsWorld.jpg" alt=""><div class="name">Honor of Kings: World</div></div>
   </div>
 </section>
 
+<section class="block" id="benchmark">
+  <div class="sec-head"><span class="num">04 / BENCHMARK</span><h2>Benchmark.<span class="soon-badge">Coming soon</span></h2></div>
+  <p class="lead">Offline and online leaderboards across model families will be released here.</p>
+</section>
+
 <section class="block" id="citation">
-  <div class="sec-head"><span class="num">03 / CITATION</span><h2>Citation.</h2></div>
+  <div class="sec-head"><span class="num">05 / CITATION</span><h2>Citation.</h2></div>
   <div class="cite"><pre>@article{gamehorizon2026,
   title  = {GameHorizon Suite: Multi-Horizon Data and Evaluation in Gameplay},
   author = {GameHorizon Suite Team},
@@ -202,7 +211,10 @@
 
 <footer>
   <a href="#"><b>GameHorizon Suite</b></a>
-  <div class="fl"><a href="https://github.com/TencentARC/GameHorizon" target="_blank" rel="noopener">Code</a><a href="#overview">Overview</a><a href="#games">Games</a><a href="#citation">Citation</a></div>
+  <div class="fl">
+    <a href="#overview">Overview</a><a href="#annotator">Annotator</a><a href="#data">Data</a><a href="#benchmark">Benchmark</a>
+    <a href="https://github.com/TencentARC/GameHorizon" target="_blank" rel="noopener">Code</a><a href="#citation">Citation</a>
+  </div>
 </footer>
 </body>
 </html>
