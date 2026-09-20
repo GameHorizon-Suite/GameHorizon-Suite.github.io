@@ -87,6 +87,22 @@
   .stat .v{font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:800;background:linear-gradient(92deg,var(--sky),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
   .stat .k{color:var(--muted);font-size:.9rem;margin-top:6px}
   @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .hz-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .hz-tag{display:inline-flex;align-items:baseline;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:.85rem;color:#dce4f5}
+  .hz-tag i{font-style:normal;color:var(--sky);font-weight:700}
+  .hz-tag s{text-decoration:none;color:var(--faint);font-size:.78rem}
+  figure.figure{margin:34px 0 0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#0b1120;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+  figure.figure img{width:100%;height:auto;display:block}
+  figure.figure figcaption{padding:15px 22px;font-size:.9rem;color:var(--muted);line-height:1.62;border-top:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,0))}
+  figure.figure figcaption b{color:#dbe5f7;font-weight:650}
+  .comps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+  @media(max-width:820px){.comps{grid-template-columns:1fr}}
+  .comp{border:1px solid var(--line);border-radius:16px;padding:20px 20px 22px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.01))}
+  .comp .ct{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700}
+  .comp h3{margin:.35rem 0 .55rem;font-size:1.22rem;font-weight:750;background:linear-gradient(92deg,var(--sky),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .comp p{margin:0;color:#c2ccdf;font-size:.92rem;line-height:1.62}
+  .comp .ck{margin-top:13px;display:flex;flex-wrap:wrap;gap:6px}
+  .comp .ck span{font-size:.74rem;padding:3px 9px;border-radius:999px;background:rgba(91,140,255,.14);color:#bcd0ff;border:1px solid rgba(91,140,255,.28)}
   .games{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
   @media(max-width:900px){.games{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:560px){.games{grid-template-columns:repeat(2,1fr)}}
@@ -156,15 +172,61 @@
 
 <section class="block" id="overview">
   <div class="sec-head"><span class="num">01 / OVERVIEW</span><h2>Gameplay understanding, across horizons.</h2></div>
-  <p class="lead"><b>GameHorizon Suite</b> studies how models follow and understand natural-language instructions during
-    real gameplay &mdash; from fine-grained <b>operations</b> to mid-level <b>goals</b> and long-horizon <b>missions</b> &mdash;
-    across diverse AAA titles with human keyboard-and-mouse action traces, evaluated through a
-    <b>reproducible offline track</b> and a <b>stepwise online track</b>.</p>
+  <p class="lead">Modern video games are a measurable testbed for AI &mdash; demanding <b>visual understanding</b>,
+    <b>instruction decomposition</b>, <b>goal planning</b>, and <b>precise action control</b> across multiple temporal
+    horizons. <b>GameHorizon Suite</b> unifies data and evaluation into a single yardstick spanning three horizons and
+    <b>21 AAA titles</b>, for diverse model families.</p>
+
+  <div class="hz-tags">
+    <span class="hz-tag"><i>Short-horizon</i> operations <s>1&ndash;5 s</s></span>
+    <span class="hz-tag"><i>Medium-horizon</i> goals <s>1&ndash;2 min</s></span>
+    <span class="hz-tag"><i>Long-horizon</i> strategies <s>5&ndash;8 min</s></span>
+  </div>
+
+  <figure class="figure">
+    <img src="assets/figures/fig1_horizons.jpg" alt="Multi-horizon gameplay across AAA titles: operations, goals, and strategies" loading="lazy" />
+    <figcaption>One action stream, three horizons. From primitive keystrokes and mouse moves up to <b>short-horizon
+      operations</b>, <b>medium-horizon goals</b>, and <b>long-horizon strategies</b> &mdash; a unified yardstick across
+      diverse AAA games. Red text marks key actions or objects in each frame.</figcaption>
+  </figure>
+
+  <figure class="figure">
+    <img src="assets/figures/pipeline.jpg" alt="GameHorizon Suite pipeline: Annotator, Data, and Bench" loading="lazy" />
+    <figcaption><b>GameHorizon-Annotator</b> turns raw AAA recordings and human keyboard-mouse actions into a bottom-up
+      pyramid of L1&ndash;L3 instructions. <b>GameHorizon-Data</b> aligns videos, actions, and instructions into
+      temporally aligned triplets. <b>GameHorizon-Bench</b> evaluates through a reproducible offline track
+      (T1&ndash;T3 plus diagnostic variants) and a stepwise online track with failure localization.</figcaption>
+  </figure>
+
+  <div class="comps">
+    <div class="comp">
+      <div class="ct">Component 01</div>
+      <h3>Annotator</h3>
+      <p>A scalable, automated pipeline. Action-aware segmentation and bottom-up merging abstract fine-grained
+        video&ndash;action trajectories into a three-level instruction pyramid.</p>
+      <div class="ck"><span>Automated</span><span>Bottom-up L1&rarr;L2&rarr;L3</span></div>
+    </div>
+    <div class="comp">
+      <div class="ct">Component 02</div>
+      <h3>Data</h3>
+      <p>The first large-scale AAA corpus that aligns videos, player actions, and multi-horizon instructions across
+        diverse genres.</p>
+      <div class="ck"><span>5,000 h</span><span>21 titles</span><span>100 players</span><span>6.18M instructions</span></div>
+    </div>
+    <div class="comp">
+      <div class="ct">Component 03</div>
+      <h3>Bench</h3>
+      <p>Reproducible offline MCQs plus a stepwise online track that resets on failure to localize errors within
+        long-horizon gameplay.</p>
+      <div class="ck"><span>5,000 MCQs</span><span>T1&ndash;T3 + variants</span><span>20 tasks / 62 subtasks</span></div>
+    </div>
+  </div>
+
   <div class="stats">
-    <div class="stat"><div class="v">21</div><div class="k">AAA titles</div></div>
-    <div class="stat"><div class="v">Multi-Horizon</div><div class="k">operation · goal · mission</div></div>
-    <div class="stat"><div class="v">Offline + Online</div><div class="k">reproducible &amp; stepwise</div></div>
-    <div class="stat"><div class="v">45</div><div class="k">models · five paradigms</div></div>
+    <div class="stat"><div class="v">5,000 h</div><div class="k">human gameplay · 21 AAA titles</div></div>
+    <div class="stat"><div class="v">6.18M</div><div class="k">multi-horizon instructions</div></div>
+    <div class="stat"><div class="v">47</div><div class="k">models · five paradigms</div></div>
+    <div class="stat"><div class="v">1M+</div><div class="k">model inferences &amp; API calls</div></div>
   </div>
 </section>
 
