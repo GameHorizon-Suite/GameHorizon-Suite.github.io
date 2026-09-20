@@ -93,8 +93,8 @@
   .hz-tag s{text-decoration:none;color:var(--faint);font-size:.78rem}
   .sec-head.min{margin-bottom:28px}
   figure.figure{margin:30px 0 0}
-  figure.figure .plate{background:#f5f7fb;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 18px 50px rgba(0,0,0,.38);overflow:hidden;display:flex}
-  figure.figure img{width:100%;height:auto;display:block;margin:0 auto;border-radius:8px}
+  figure.figure .plate{background:#f5f7fb;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 18px 50px rgba(0,0,0,.38);overflow:hidden}
+  figure.figure img{width:100%;height:auto;display:block;border-radius:8px}
   figure.figure figcaption{margin-top:14px;font-size:.9rem;color:var(--muted);line-height:1.62;max-width:960px}
   figure.figure figcaption b{color:#dbe5f7;font-weight:650}
   .comps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
@@ -177,17 +177,16 @@
 
   <figure class="figure">
     <div class="plate"><img src="assets/figures/pipeline.png" alt="GameHorizon Suite pipeline: Annotator, Data, and Bench" loading="lazy" /></div>
-    <figcaption><b>GameHorizon-Annotator</b> turns raw AAA recordings and human keyboard-mouse actions into a bottom-up
-      pyramid of L1&ndash;L3 instructions. <b>GameHorizon-Data</b> aligns videos, actions, and instructions into
-      temporally aligned triplets. <b>GameHorizon-Bench</b> evaluates through a reproducible offline track
-      (T1&ndash;T3 plus diagnostic variants) and a stepwise online track with failure localization.</figcaption>
-  </figure>
-
-  <figure class="figure">
-    <div class="plate"><img src="assets/figures/fig1_horizons.jpg" alt="Multi-horizon gameplay across AAA titles: operations, goals, and strategies" loading="lazy" /></div>
-    <figcaption>One action stream, three horizons. From primitive keystrokes and mouse moves up to <b>short-horizon
-      operations</b>, <b>medium-horizon goals</b>, and <b>long-horizon strategies</b> &mdash; a unified yardstick across
-      diverse AAA games. Red text marks key actions or objects in each frame.</figcaption>
+    <figcaption>We introduce <b>GameHorizon</b>, a data and evaluation suite spanning multiple temporal horizons and AAA
+      games. It serves as a unified yardstick across a broad range of model types. Specifically, GameHorizon Suite
+      consists of three key components. <b>GameHorizon-Annotator</b> automatically produces a three-level pyramid of
+      short-horizon operations L<sub>1</sub>, medium-horizon goals L<sub>2</sub>, and long-horizon strategies
+      L<sub>3</sub>. <b>GameHorizon-Data</b> contains 5,000 hours of gameplay across 21 game titles, with temporally
+      aligned videos, actions, and multi-horizon instructions. <b>GameHorizon-Bench</b> provides reproducible offline
+      and stepwise online testing. The offline track contains thousands of standardized questions across three primary
+      tasks T<sub>1</sub>&ndash;T<sub>3</sub> and diagnostic variants T<sup>*</sup>. The online track tests
+      order-dependent causal and order-flexible thematic tasks through verifiable subtasks and game resets for failure
+      localization.</figcaption>
   </figure>
 
   <div class="comps">
