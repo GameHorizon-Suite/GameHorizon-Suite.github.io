@@ -40,10 +40,9 @@
 
   .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
   .wall{position:absolute;inset:0;z-index:0;display:grid;
-    grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(3,1fr);
+    grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);
     filter:saturate(1.03) brightness(.82)}
   .wall img{width:100%;height:100%;object-fit:cover;display:block;background:#0a0f1a}
-  @media(max-width:820px){.wall{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(5,1fr)}}
   .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
     background:
       radial-gradient(1100px 760px at 50% 44%,rgba(5,8,15,.08),rgba(5,8,15,.50) 66%,rgba(5,8,15,.82) 100%),
@@ -117,9 +116,10 @@
 
 <header class="hero">
   <div class="wall" aria-hidden="true">
-    <img src="assets/covers/GTA5.jpg" alt=""><img src="assets/covers/TheWitcher3.jpg" alt=""><img src="assets/covers/Palworld.jpg" alt=""><img src="assets/covers/ApexLegends.jpg" alt=""><img src="assets/covers/PUBG.jpg" alt="">
-    <img src="assets/covers/EldenRing.jpg" alt=""><img src="assets/covers/Cyberpunk2077.jpg" alt=""><img src="assets/covers/BlackMythWukong.jpg" alt=""><img src="assets/covers/RedDeadRedemption.jpg" alt=""><img src="assets/covers/EldenRingNightreign.jpg" alt="">
-    <img src="assets/covers/AssassinsCreed.jpg" alt=""><img src="assets/covers/DeltaForce.jpg" alt=""><img src="assets/covers/WatchDogs.jpg" alt=""><img src="assets/covers/HonorOfKingsWorld.jpg" alt=""><img src="assets/covers/GenshinImpact.jpg" alt="">
+    <img src="assets/covers/GTA5.jpg" alt=""><img src="assets/covers/TheWitcher3.jpg" alt=""><img src="assets/covers/Palworld.jpg" alt=""><img src="assets/covers/ApexLegends.jpg" alt="">
+    <img src="assets/covers/EldenRing.jpg" alt=""><img src="assets/covers/BlackMythWukong.jpg" alt=""><img src="assets/covers/Cyberpunk2077.jpg" alt=""><img src="assets/covers/PUBG.jpg" alt="">
+    <img src="assets/covers/RedDeadRedemption.jpg" alt=""><img src="assets/covers/EldenRingNightreign.jpg" alt=""><img src="assets/covers/DeltaForce.jpg" alt=""><img src="assets/covers/EscapeFromTarkov.jpg" alt="">
+    <img src="assets/covers/AssassinsCreed.jpg" alt=""><img src="assets/covers/WatchDogs.jpg" alt=""><img src="assets/covers/HonorOfKingsWorld.jpg" alt=""><img src="assets/covers/GenshinImpact.jpg" alt="">
   </div>
   <div class="scrim"></div>
   <div class="hero-in">
@@ -188,6 +188,7 @@
     <div class="game"><img src="assets/covers/PUBG.jpg" alt=""><div class="name">PUBG</div></div>
     <div class="game"><img src="assets/covers/Palworld.jpg" alt=""><div class="name">Palworld</div></div>
     <div class="game"><img src="assets/covers/DeltaForce.jpg" alt=""><div class="name">Delta Force</div></div>
+    <div class="game"><img src="assets/covers/EscapeFromTarkov.jpg" alt=""><div class="name">Escape from Tarkov</div></div>
     <div class="game"><img src="assets/covers/WatchDogs.jpg" alt=""><div class="name">Watch Dogs</div></div>
     <div class="game"><img src="assets/covers/GenshinImpact.jpg" alt=""><div class="name">Genshin Impact</div></div>
     <div class="game"><img src="assets/covers/HonorOfKingsWorld.jpg" alt=""><div class="name">Honor of Kings: World</div></div>
