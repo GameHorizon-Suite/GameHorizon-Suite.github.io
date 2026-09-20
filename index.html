@@ -5,148 +5,249 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>GameHorizon Suite — Multi-Horizon Data and Evaluation in Gameplay</title>
 <meta name="description" content="GameHorizon Suite: multi-horizon data and evaluation for gameplay understanding across diverse AAA titles." />
+<meta property="og:title" content="GameHorizon Suite" />
+<meta property="og:description" content="Multi-Horizon Data and Evaluation in Gameplay" />
 <link rel="icon" type="image/png" href="assets/logo.png" />
 <style>
   :root{
-    --bg:#060a12; --ink:#e8ecf4; --muted:#9aa6bd;
-    --blue:#5b8cff; --deep:#1e3a8a; --orange:#f59e0b;
-    --card:rgba(255,255,255,.06); --line:rgba(255,255,255,.14);
+    --bg:#05080f; --bg2:#080d18; --ink:#eaf0fb; --muted:#93a1bd; --faint:#5b6884;
+    --blue:#5b8cff; --sky:#8fb2ff; --deep:#1e3a8a; --orange:#f7a53b; --amber:#ffce85;
+    --line:rgba(255,255,255,.12); --card:rgba(255,255,255,.045);
+    --maxw:1160px;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{
-    background:var(--bg); color:var(--ink);
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
+  .kicker{font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);font-weight:700}
+  .accent{color:var(--amber)}
 
-  /* ---------- HERO ---------- */
-  .hero{position:relative; min-height:100vh; overflow:hidden; display:flex; align-items:center; justify-content:center}
-  .wall{position:absolute; inset:-2%; display:grid;
-        grid-template-columns:repeat(5,1fr); grid-template-rows:repeat(4,1fr);
-        gap:0; filter:saturate(1.05) brightness(.85); transform:scale(1.02)}
-  .wall video{width:100%; height:100%; object-fit:cover; display:block; background:#0a0f1a}
-  .overlay{position:absolute; inset:0; z-index:1;
+  /* ===== NAV ===== */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:16px 30px;background:linear-gradient(180deg,rgba(5,8,15,.85),rgba(5,8,15,0));
+    backdrop-filter:blur(6px);transition:.3s}
+  .nav img{height:30px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.7))}
+  .nav .n-links{display:flex;gap:26px;font-size:.86rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+  .nav .n-links a:hover{color:#fff}
+  @media(max-width:760px){.nav .n-links{display:none}}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .wall{position:absolute;inset:-2%;z-index:0;display:grid;
+    grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(4,1fr);
+    filter:saturate(1.05) brightness(.8) contrast(1.03);transform:scale(1.03)}
+  .wall video{width:100%;height:100%;object-fit:cover;display:block;background:#0a0f1a}
+  .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
     background:
-      radial-gradient(1100px 760px at 50% 42%, rgba(6,10,18,.35), rgba(6,10,18,.82) 66%, #060a12 100%),
-      linear-gradient(180deg, rgba(6,10,18,.86) 0%, rgba(6,10,18,.30) 26%, rgba(6,10,18,.42) 70%, #060a12 100%);
-  }
-  .vignette{position:absolute; inset:0; z-index:1; pointer-events:none;
-    box-shadow:inset 0 0 220px 60px rgba(0,0,0,.75)}
+      radial-gradient(1200px 820px at 50% 40%,rgba(5,8,15,.28),rgba(5,8,15,.82) 62%,var(--bg) 100%),
+      linear-gradient(180deg,rgba(5,8,15,.9) 0%,rgba(5,8,15,.25) 24%,rgba(5,8,15,.5) 68%,var(--bg) 100%);
+    box-shadow:inset 0 0 240px 70px rgba(0,0,0,.8)}
+  .hero-in{position:relative;z-index:2;text-align:center;padding:96px 20px 60px;max-width:940px}
+  .emblem{width:170px;height:auto;margin:0 auto 14px;
+    filter:drop-shadow(0 12px 46px rgba(91,140,255,.5)) drop-shadow(0 0 26px rgba(247,165,59,.28))}
+  .hero-in h1{margin:.35rem 0 .1rem;font-weight:800;letter-spacing:-.02em;line-height:1;
+    font-size:clamp(2.7rem,8vw,5.6rem);
+    background:linear-gradient(96deg,#9cbcff 0%,#f2f6ff 46%,#ffc981 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 4px 30px rgba(0,0,0,.5))}
+  .paper-title{font-size:clamp(1.05rem,2.6vw,1.55rem);color:#e4ebfb;font-weight:500;margin:.5rem auto 0;max-width:760px}
+  .tagline{color:var(--muted);font-size:1.02rem;line-height:1.6;margin:1rem auto 0;max-width:660px}
 
-  .nav{position:absolute; top:0; left:0; right:0; z-index:3;
-       display:flex; align-items:center; justify-content:space-between;
-       padding:18px 26px}
-  .nav img{height:34px; filter:drop-shadow(0 2px 10px rgba(0,0,0,.6))}
-  .nav .links{display:flex; gap:22px; font-size:.92rem; color:var(--muted)}
-  .nav .links a:hover{color:#fff}
+  /* project links */
+  .links{display:flex;flex-wrap:wrap;gap:13px;justify-content:center;margin-top:34px}
+  .link{display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:999px;
+    border:1px solid var(--line);background:var(--card);backdrop-filter:blur(8px);
+    font-size:.96rem;font-weight:650;letter-spacing:.01em;color:#eef3ff;transition:.18s ease}
+  .link svg{width:18px;height:18px;fill:currentColor}
+  .link.live:hover{transform:translateY(-2px);border-color:var(--blue);
+    background:rgba(91,140,255,.16);box-shadow:0 10px 34px rgba(91,140,255,.34)}
+  .link.soon{opacity:.5;cursor:not-allowed}
+  .link .soon-tag{font-size:.6rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+    padding:2px 7px;border-radius:999px;background:rgba(247,165,59,.18);color:var(--amber);border:1px solid rgba(247,165,59,.34)}
 
-  .content{position:relative; z-index:2; text-align:center; padding:40px 20px; max-width:960px}
-  .emblem{width:200px; height:auto; margin:0 auto 6px;
-          filter:drop-shadow(0 10px 40px rgba(91,140,255,.45)) drop-shadow(0 0 24px rgba(245,158,11,.25))}
-  h1{font-size:clamp(2.4rem,7vw,5rem); line-height:1.02; margin:.2rem 0 .1rem; letter-spacing:-.02em; font-weight:800;
-     background:linear-gradient(92deg,#8fb2ff 0%,#e9eefc 45%,#ffcf87 100%);
-     -webkit-background-clip:text; background-clip:text; color:transparent;
-     text-shadow:0 2px 30px rgba(0,0,0,.35)}
-  .subtitle{font-size:clamp(1rem,2.4vw,1.4rem); color:#dfe6f5; font-weight:500; margin:.4rem 0}
-  .tagline{color:var(--muted); font-size:1rem; margin:.5rem auto 0; max-width:640px}
+  .cue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:2;color:var(--faint);
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase}
+  .cue::after{content:"";display:block;width:1px;height:34px;margin:10px auto 0;
+    background:linear-gradient(var(--faint),transparent);animation:cue 1.8s ease-in-out infinite}
+  @keyframes cue{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
 
-  .btns{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:30px}
-  .btn{display:inline-flex; align-items:center; gap:9px; padding:12px 20px; border-radius:999px;
-       border:1px solid var(--line); background:var(--card); backdrop-filter:blur(8px);
-       font-size:.98rem; font-weight:600; color:#eaf0ff; transition:.18s ease}
-  .btn svg{width:18px; height:18px; fill:currentColor}
-  .btn.active:hover{transform:translateY(-2px); border-color:var(--blue);
-       box-shadow:0 8px 30px rgba(91,140,255,.35); background:rgba(91,140,255,.16)}
-  .btn.soon{opacity:.55; cursor:not-allowed}
-  .btn .tag{font-size:.66rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
-       padding:2px 7px; border-radius:999px; background:rgba(245,158,11,.2); color:#ffce85; border:1px solid rgba(245,158,11,.35)}
+  /* ===== SECTIONS ===== */
+  section.block{position:relative;z-index:2;background:var(--bg);
+    max-width:var(--maxw);margin:0 auto;padding:110px 26px}
+  .sec-head{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:40px}
+  .sec-head h2{margin:0;font-size:clamp(1.7rem,4vw,2.6rem);font-weight:750;letter-spacing:-.01em}
+  .sec-head .num{color:var(--faint);font-size:.82rem;letter-spacing:.24em;font-weight:700;white-space:nowrap}
+  .lead{font-size:1.12rem;line-height:1.75;color:#cdd7ea;max-width:820px}
+  .lead b{color:#fff;font-weight:650}
 
-  .scroll{position:absolute; bottom:22px; left:50%; transform:translateX(-50%); z-index:2;
-       color:var(--muted); font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; opacity:.8}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:46px}
+  .stat{border:1px solid var(--line);border-radius:16px;padding:24px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.01))}
+  .stat .v{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:800;
+    background:linear-gradient(92deg,var(--sky),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .k{color:var(--muted);font-size:.92rem;margin-top:6px}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
 
-  @media (max-width:820px){
-    .wall{grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(5,1fr)}
-    .nav .links{display:none}
-    .emblem{width:150px}
-  }
-  @media (max-width:520px){
-    .wall{grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(7,1fr)}
-  }
+  /* games grid */
+  .games{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:900px){.games{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:560px){.games{grid-template-columns:repeat(2,1fr)}}
+  .game{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:16/10;border:1px solid var(--line);background:#0a0f1a}
+  .game video{width:100%;height:100%;object-fit:cover;display:block;transition:.35s;transform:scale(1.02)}
+  .game:hover video{transform:scale(1.08)}
+  .game .name{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;font-size:.85rem;font-weight:600;
+    background:linear-gradient(0deg,rgba(0,0,0,.8),transparent);color:#fff}
+
+  /* citation */
+  .cite{position:relative;border:1px solid var(--line);border-radius:14px;background:#0a0f18;padding:22px 24px;overflow:auto}
+  .cite pre{margin:0;color:#c7d2ea;font-size:.9rem;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}
+
+  footer{position:relative;z-index:2;background:var(--bg);border-top:1px solid var(--line);
+    max-width:var(--maxw);margin:0 auto;padding:40px 26px;display:flex;flex-wrap:wrap;gap:14px;
+    align-items:center;justify-content:space-between;color:var(--faint);font-size:.86rem}
+  footer .fl{display:flex;gap:20px}
+  footer a:hover{color:#fff}
 </style>
 </head>
 <body>
-  <section class="hero">
-    <div class="wall" id="wall" aria-hidden="true">
-      <video src="assets/videos/BlackMythWukong.mp4"     autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/EldenRing.mp4"           autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/Cyberpunk2077.mp4"       autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/RedDeadRedemption.mp4"   autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/GenshinImpact.mp4"       autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/GTA5.mp4"                autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/AssassinsCreed.mp4"      autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/TheWitcher3.mp4"         autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/ApexLegends.mp4"         autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/Valorant.mp4"            autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/EldenRingNightreign.mp4" autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/PUBG.mp4"                autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/EscapeFromTarkov.mp4"    autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/DeltaForce.mp4"          autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/Palworld.mp4"            autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/WatchDogs.mp4"           autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/WutheringWaves.mp4"      autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/NTE.mp4"                 autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/RocoKingdomWorld.mp4"    autoplay muted loop playsinline preload="auto"></video>
-      <video src="assets/videos/Minecraft.mp4"           autoplay muted loop playsinline preload="auto"></video>
+
+<nav class="nav" id="nav">
+  <img src="assets/logo_flat.png" alt="GameHorizon Suite" />
+  <div class="n-links">
+    <a href="#overview">Overview</a>
+    <a href="#games">Games</a>
+    <a href="#citation">Citation</a>
+    <a href="https://github.com/GameHorizon-Suite/GameHorizon" target="_blank" rel="noopener">Code</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="wall" id="wall" aria-hidden="true"></div>
+  <div class="scrim"></div>
+  <div class="hero-in">
+    <img class="emblem" src="assets/logo.png" alt="GameHorizon Suite logo" />
+    <p class="kicker">GameHorizon&nbsp;Suite&nbsp;/&nbsp;Gameplay&nbsp;Understanding</p>
+    <h1>GameHorizon&nbsp;Suite</h1>
+    <p class="paper-title">Multi-Horizon Data and Evaluation in Gameplay</p>
+    <p class="tagline">A large-scale suite for multi-horizon gameplay understanding across diverse AAA titles,
+      pairing a <b>reproducible offline track</b> with a <b>stepwise online track</b>.</p>
+    <div class="links">
+      <span class="link soon">
+        <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm8 1.5V8h4.5L14 3.5z"/></svg>
+        Paper <span class="soon-tag">Soon</span>
+      </span>
+      <a class="link live" href="https://github.com/GameHorizon-Suite/GameHorizon" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C17 5 18 5.3 18 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+        Code
+      </a>
+      <span class="link soon">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8.5 10a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm7 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM7 15h10a5 5 0 0 1-10 0z"/></svg>
+        Hugging Face <span class="soon-tag">Soon</span>
+      </span>
+      <span class="link soon">
+        <svg viewBox="0 0 24 24"><path d="M12 2c4.4 0 8 1.6 8 3.5v13c0 1.9-3.6 3.5-8 3.5s-8-1.6-8-3.5v-13C4 3.6 7.6 2 12 2zm0 2c-3.5 0-6 1.1-6 1.5S8.5 7 12 7s6-1.1 6-1.5S15.5 4 12 4z"/></svg>
+        Dataset <span class="soon-tag">Soon</span>
+      </span>
     </div>
-    <div class="overlay"></div>
-    <div class="vignette"></div>
+  </div>
+  <div class="cue">Scroll</div>
+</header>
 
-    <nav class="nav">
-      <img src="assets/logo_flat.png" alt="GameHorizon Suite" />
-      <div class="links">
-        <a href="#" onclick="return false;">Paper</a>
-        <a href="https://github.com/GameHorizon-Suite/GameHorizon" target="_blank" rel="noopener">Code</a>
-        <a href="#" onclick="return false;">Dataset</a>
-      </div>
-    </nav>
+<!-- ===================== OVERVIEW ===================== -->
+<section class="block" id="overview">
+  <div class="sec-head"><span class="num">01 / OVERVIEW</span><h2>Gameplay understanding, across horizons.</h2></div>
+  <p class="lead"><b>GameHorizon Suite</b> studies how well models follow and understand natural-language
+    instructions during real gameplay — from fine-grained <b>operations</b> to mid-level <b>goals</b> and
+    long-horizon <b>missions</b>. It spans diverse AAA titles with human keyboard-and-mouse action traces,
+    and evaluates models through a <b>reproducible offline track</b> (deterministic multiple-choice) and a
+    <b>stepwise online track</b> that localizes failures within long-horizon tasks.</p>
+  <div class="stats">
+    <div class="stat"><div class="v">21</div><div class="k">AAA titles</div></div>
+    <div class="stat"><div class="v">Multi-Horizon</div><div class="k">operation · goal · mission</div></div>
+    <div class="stat"><div class="v">Offline + Online</div><div class="k">reproducible &amp; stepwise</div></div>
+    <div class="stat"><div class="v">45</div><div class="k">models across five paradigms</div></div>
+  </div>
+</section>
 
-    <div class="content">
-      <img class="emblem" src="assets/logo.png" alt="GameHorizon Suite logo" />
-      <h1>GameHorizon&nbsp;Suite</h1>
-      <div class="subtitle">Multi-Horizon Data and Evaluation in Gameplay</div>
-      <p class="tagline">A large-scale suite for multi-horizon gameplay understanding across diverse AAA titles,
-        with a reproducible offline track and a stepwise online track.</p>
+<!-- ===================== GAMES ===================== -->
+<section class="block" id="games">
+  <div class="sec-head"><span class="num">02 / GAMES</span><h2>A wall of worlds.</h2></div>
+  <p class="lead">Gameplay is recorded across a broad range of modern AAA titles spanning open worlds,
+    shooters, action-RPGs, and sandboxes.</p>
+  <div class="games" id="games-grid"></div>
+</section>
 
-      <div class="btns">
-        <span class="btn soon">
-          <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm8 1.5V8h4.5L14 3.5z"/></svg>
-          Paper <span class="tag">Soon</span>
-        </span>
-        <a class="btn active" href="https://github.com/GameHorizon-Suite/GameHorizon" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C17 5 18 5.3 18 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
-          Code
-        </a>
-        <span class="btn soon">
-          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8.5 10a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm7 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM7 15h10a5 5 0 0 1-10 0z"/></svg>
-          Hugging Face <span class="tag">Soon</span>
-        </span>
-        <span class="btn soon">
-          <svg viewBox="0 0 24 24"><path d="M12 2c4.4 0 8 1.6 8 3.5v13c0 1.9-3.6 3.5-8 3.5s-8-1.6-8-3.5v-13C4 3.6 7.6 2 12 2zm0 2c-3.5 0-6 1.1-6 1.5S8.5 7 12 7s6-1.1 6-1.5S15.5 4 12 4z"/></svg>
-          Dataset <span class="tag">Soon</span>
-        </span>
-      </div>
-    </div>
+<!-- ===================== CITATION ===================== -->
+<section class="block" id="citation">
+  <div class="sec-head"><span class="num">03 / CITATION</span><h2>Citation.</h2></div>
+  <div class="cite"><pre>@article{gamehorizon2026,
+  title   = {GameHorizon Suite: Multi-Horizon Data and Evaluation in Gameplay},
+  author  = {GameHorizon Suite Team},
+  year    = {2026},
+  note    = {Preprint coming soon}
+}</pre></div>
+</section>
 
-    <div class="scroll">21 AAA titles · offline + online</div>
-  </section>
+<footer>
+  <a href="#cover"><b>GameHorizon Suite</b></a>
+  <div class="fl">
+    <a href="https://github.com/GameHorizon-Suite/GameHorizon" target="_blank" rel="noopener">Code</a>
+    <a href="#overview">Overview</a>
+    <a href="#games">Games</a>
+    <a href="#citation">Citation</a>
+  </div>
+</footer>
 
-  <script>
-    // Nudge autoplay on browsers that pause muted videos until interaction.
-    document.querySelectorAll('#wall video').forEach(function(v){
-      v.play().catch(function(){});
-    });
-  </script>
+<script>
+  // Games: display name -> video file
+  var GAMES = [
+    ["Black Myth: Wukong","BlackMythWukong"],["Elden Ring","EldenRing"],["Cyberpunk 2077","Cyberpunk2077"],
+    ["Red Dead Redemption","RedDeadRedemption"],["Genshin Impact","GenshinImpact"],["GTA V","GTA5"],
+    ["Assassin's Creed","AssassinsCreed"],["The Witcher 3","TheWitcher3"],["Apex Legends","ApexLegends"],
+    ["Valorant","Valorant"],["Elden Ring: Nightreign","EldenRingNightreign"],["PUBG","PUBG"],
+    ["Escape from Tarkov","EscapeFromTarkov"],["Delta Force","DeltaForce"],["Palworld","Palworld"],
+    ["Watch Dogs","WatchDogs"],["Wuthering Waves","WutheringWaves"],["NTE","NTE"],
+    ["Roco Kingdom: World","RocoKingdomWorld"],["Minecraft","Minecraft"]
+  ];
+  var V = function(f){return "assets/videos/"+f+".mp4";};
+
+  // Build hero video wall (fill 20 tiles)
+  var wall = document.getElementById('wall');
+  GAMES.forEach(function(g){
+    var v=document.createElement('video');
+    v.src=V(g[1]); v.muted=true; v.loop=true; v.playsInline=true; v.autoplay=true; v.preload="auto";
+    v.setAttribute('muted',''); v.setAttribute('playsinline','');
+    wall.appendChild(v); v.play().catch(function(){});
+  });
+
+  // Build games grid (play only when visible to save CPU)
+  var grid=document.getElementById('games-grid');
+  GAMES.forEach(function(g){
+    var cell=document.createElement('div'); cell.className='game';
+    var v=document.createElement('video');
+    v.src=V(g[1]); v.muted=true; v.loop=true; v.playsInline=true; v.preload="none";
+    v.setAttribute('muted',''); v.setAttribute('playsinline','');
+    var name=document.createElement('div'); name.className='name'; name.textContent=g[0];
+    cell.appendChild(v); cell.appendChild(name); grid.appendChild(cell);
+  });
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      var v=e.target.querySelector('video'); if(!v)return;
+      if(e.isIntersecting){ if(!v.src)v.src=v.dataset.src; v.play().catch(function(){}); }
+      else v.pause();
+    });},{threshold:.25});
+    document.querySelectorAll('.game').forEach(function(c){io.observe(c);});
+  } else {
+    document.querySelectorAll('.game video').forEach(function(v){v.autoplay=true;v.play().catch(function(){});});
+  }
+
+  // Nav bg on scroll
+  addEventListener('scroll',function(){
+    document.getElementById('nav').style.background =
+      scrollY>40 ? 'rgba(5,8,15,.92)' : 'linear-gradient(180deg,rgba(5,8,15,.85),rgba(5,8,15,0))';
+  });
+</script>
 </body>
 </html>
